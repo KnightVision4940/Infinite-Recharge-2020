@@ -25,7 +25,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
+  private static Joystick xbox = new Joystick(Constants.xbox1);
 
 
   /**
@@ -43,10 +43,26 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    Joystick xbox = new Joystick(Constants.xbox1);
+   
+  }
+  public static double getTriggers(){
+    double leftTrigger = xbox.getRawAxis(1);
+    double rightTrigger = xbox.getRawAxis(2);
+  
+    if(leftTrigger > rightTrigger){
+      return -leftTrigger;
+    }
+    else{
+      return rightTrigger;
+    }
+
+  }
+  public static double getRightjoystick(){
+    return xbox.getRawAxis(1);
   }
 
-
+  
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -57,3 +73,5 @@ public class RobotContainer {
     return m_autoCommand;
   }
 }
+
+//the problem is that left trigger is negative and right positve
