@@ -17,10 +17,4 @@ package frc.robot;
  */
 public final class Constants {
     public static int xbox1 = 1;
-    
-//speed controllers
-    public static int leftFront = 0;
-    public static int leftBack = 1;
-    public static int rightFront = 2;
-    public static int rightBack = 3;
 }
