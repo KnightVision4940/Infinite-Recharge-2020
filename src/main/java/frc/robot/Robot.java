@@ -8,8 +8,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.Drive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +25,9 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  public static DriveTrain DriveTrain = new DriveTrain(0,1);
+  public static final XboxController x = new XboxController(0);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -96,6 +103,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    CommandScheduler.getInstance().schedule(new Drive());
+    CommandScheduler.getInstance().run();
   }
 
   @Override
@@ -110,4 +119,20 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+
+  public static double getTriggers(){
+    if(x.getRawAxis(4) != -1.0 && x.getRawAxis(5)==-1.0){
+      return x.getRawAxis(4);
+    } else if(x.getRawAxis(4) == -1.0 && x.getRawAxis(5)!=-1.0) {
+      return -x.getRawAxis(5);
+    }
+    else{
+      return 0.0;
+    }
+  
+  }
 }
+
+
+
+
