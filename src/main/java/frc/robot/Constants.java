@@ -16,5 +16,11 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static int xbox1 = 1;
+    // Xbox Controller Ports
+    public static int xbox_drive = 0;
+
+    //Motor Ports (PDP)
+    public static int LeftF_drive = 0;
+    public static int LeftB_drive = 1;
+
 }

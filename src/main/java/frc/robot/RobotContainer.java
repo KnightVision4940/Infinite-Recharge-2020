@@ -43,7 +43,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    Joystick xbox = new Joystick(Constants.xbox1);
+    Joystick xbox = new Joystick(Constants.xbox_drive);
   }
 
 

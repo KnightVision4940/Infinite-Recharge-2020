@@ -26,8 +26,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  public static DriveTrain DriveTrain = new DriveTrain(0,1);
-  public static final XboxController x = new XboxController(0);
+  public static DriveTrain DriveTrain = new DriveTrain(Constants.LeftF_drive,Constants.LeftB_drive);
+  public static final XboxController x = new XboxController(Constants.xbox_drive);
 
   /**
    * This function is run when the robot is first started up and should be used for any

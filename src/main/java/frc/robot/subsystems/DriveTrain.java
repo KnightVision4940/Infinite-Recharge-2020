@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,21 +21,16 @@ public class DriveTrain extends SubsystemBase {
 
   static DifferentialDrive drive;
     
-
-  public DriveTrain(int frontL,int backl ) {
+  public DriveTrain(int frontL,int backL) {
     leftFront = new Victor(frontL);
-    leftBack = new Victor(backl);
-
-    
+    leftBack = new Victor(backL);
 
     drive = new DifferentialDrive(leftFront, leftBack);
 
-
   }
-  public void drive(double Speed, double turn){
-
-    drive.arcadeDrive(Speed, turn,true);
-
+  //Without Gyro Functionality
+  public void drive(double speed, double turn){
+    drive.arcadeDrive(speed, turn,true);
   }
 
   @Override
