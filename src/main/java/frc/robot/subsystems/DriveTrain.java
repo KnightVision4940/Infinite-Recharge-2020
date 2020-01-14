@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -27,6 +29,7 @@ public class DriveTrain extends SubsystemBase {
   static Victor leftBack;
   static Victor rightFront;
   static Victor rightBack;
+  static ADXRS450_Gyro gyro;
 
   static DifferentialDrive drive;
     
@@ -35,6 +38,8 @@ public class DriveTrain extends SubsystemBase {
     leftBack = new Victor(leftB);
     rightFront = new Victor(rightF);
     rightBack = new Victor(rightB);
+    SPI.Port kGyroPort = SPI.Port.kOnboardCS0;
+    gyro = new ADXRS450_Gyro(kGyroPort);
     // leftFront = new WPI_VictorSPX(leftF);
     // leftBack = new WPI_VictorSPX(leftB);
     // rightFront = new WPI_VictorSPX(rightF);
@@ -49,6 +54,14 @@ public class DriveTrain extends SubsystemBase {
   public void drive(double speed, double turn){
     drive.arcadeDrive(speed, turn,true);
   }
+
+  public void driveStraightGyro(double speed){
+    double p = 1.0;
+    double error = -gyro.getAngle(); 
+    double turn = p * error;
+    drive.arcadeDrive(speed, turn);
+  }
+
 
   @Override
   public void periodic() {
