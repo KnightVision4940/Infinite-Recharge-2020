@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.Drive;
+import frc.robot.Constants;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,7 +27,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  public static DriveTrain DriveTrain = new DriveTrain(Constants.LeftF_drive,Constants.LeftB_drive);
+  public static DriveTrain drive = new DriveTrain(Constants.LeftF_drive, Constants.LeftB_drive, Constants.RightF_drive, Constants.RightB_drive);
   public static final XboxController x = new XboxController(Constants.xbox_drive);
 
   /**
@@ -120,7 +121,7 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
-  public static double getTriggers(){
+  public static double getTriggers() {
     if(x.getRawAxis(4) != -1.0 && x.getRawAxis(5)==-1.0){
       return x.getRawAxis(4);
     } else if(x.getRawAxis(4) == -1.0 && x.getRawAxis(5)!=-1.0) {
@@ -130,6 +131,14 @@ public class Robot extends TimedRobot {
       return 0.0;
     }
   
+  }
+  public static double getXLeft() {
+    double deadzone = 0.05;
+    double rawPos = x.getRawAxis(0);
+    if(rawPos > -deadzone && rawPos < deadzone) {
+      return 0;
+    }
+    return rawPos;
   }
 }
 

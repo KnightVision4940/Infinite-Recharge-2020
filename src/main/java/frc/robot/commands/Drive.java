@@ -16,8 +16,7 @@ public class Drive extends CommandBase {
    * Creates a new Drive.
    */
   public Drive() {
-    addRequirements(Robot.DriveTrain);
-    
+    addRequirements(Robot.drive);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -29,7 +28,7 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.DriveTrain.drive(Robot.getTriggers(), 0.0);
+    Robot.drive.drive(Robot.getTriggers(), Robot.getXLeft());
   }
 
   // Called once the command ends or is interrupted.
