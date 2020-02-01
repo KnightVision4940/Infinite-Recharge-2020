@@ -9,11 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.colourWheel;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class goToColour extends CommandBase {
   /**
    * Creates a new goToColour.
    */
+  private int colourToGoTo;
+  colourWheel m_colourWheel = new colourWheel();
   public goToColour() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -21,12 +25,37 @@ public class goToColour extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    DriverStation station = new DriverStation();
+    String gameData;
+    gameData = DriverStation.getInstance().getGameSpecificMessage();
+    if(gameData.length() > 0)
+    {
+      switch (gameData.charAt(0))
+      {
+        case 'B' :
+          colourToGoTo = 0;
+          break;
+        case 'G' :
+          colourToGoTo = 3;
+          break;
+        case 'R' :
+          colourToGoTo = 2;
+          break;
+        case 'Y' :
+          colourToGoTo = 1;
+          break;
+        default :
+          //This is corrupt data
+          break;
+      }
+    } else {
+      //Code for no data received yet
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_colourWheel.findColour(colourToGoTo);
   }
 
   // Called once the command ends or is interrupted.
