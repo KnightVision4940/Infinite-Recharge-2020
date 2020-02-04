@@ -7,14 +7,19 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+// import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.revrobotics.CANSparkMax;
+// import com.revrobotics.SparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Victor;
+// import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import edu.wpi.first.wpilibj.Encoder;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -25,19 +30,19 @@ public class DriveTrain extends SubsystemBase {
   // static WPI_VictorSPX leftBack;
   // static WPI_VictorSPX rightFront;
   // static WPI_VictorSPX rightBack;
-  static Victor leftFront;
-  static Victor leftBack;
-  static Victor rightFront;
-  static Victor rightBack;
+  static CANSparkMax leftFront;
+  static CANSparkMax leftBack;
+  static CANSparkMax rightFront;
+  static CANSparkMax rightBack;
   static ADXRS450_Gyro gyro;
 
   static DifferentialDrive drive;
     
   public DriveTrain(int leftF,int leftB, int rightF, int rightB) {
-    leftFront = new Victor(leftF);
-    leftBack = new Victor(leftB);
-    rightFront = new Victor(rightF);
-    rightBack = new Victor(rightB);
+    leftFront = new CANSparkMax(leftF, MotorType.kBrushless);
+    leftBack = new CANSparkMax(leftB, MotorType.kBrushless);
+    rightFront = new CANSparkMax(rightF, MotorType.kBrushless);
+    rightBack = new CANSparkMax(rightB, MotorType.kBrushless);
     SPI.Port kGyroPort = SPI.Port.kOnboardCS0;
     gyro = new ADXRS450_Gyro(kGyroPort);
     // leftFront = new WPI_VictorSPX(leftF);
@@ -52,6 +57,9 @@ public class DriveTrain extends SubsystemBase {
   }
   //Without Gyro Functionality
   public void drive(double speed, double turn){
+    // Encoder motorEncoder = new Encoder(0, 1);
+    // motorEncoder.setDistancePerPulse(1./256.);
+    // if(motorEncoder.get() < 1000) {  } // < --- help
     drive.arcadeDrive(speed, turn,true);
   }
 
