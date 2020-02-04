@@ -24,5 +24,6 @@ public final class Constants {
     public static int LeftB_drive = 1;
     public static int RightF_drive = 2;
     public static int RightB_drive = 3;
+    public static int colourWheel = 3;
 
 }
