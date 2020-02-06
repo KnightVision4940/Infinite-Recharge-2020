@@ -20,10 +20,10 @@ public final class Constants {
     public static int xbox_drive = 0;
 
     //Motor Ports (PDP)
-    public static int LeftF_drive = 0;
-    public static int LeftB_drive = 1;
-    public static int RightF_drive = 2;
-    public static int RightB_drive = 3;
-    public static int colourWheel = 3;
+    public static int LeftF_drive = 12;
+    public static int LeftB_drive = 13;
+    public static int RightF_drive = 3;
+    public static int RightB_drive = 2;
+    public static int colourWheel = 16;
 
 }

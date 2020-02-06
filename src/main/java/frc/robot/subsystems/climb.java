@@ -12,14 +12,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Climb extends SubsystemBase {
-  static TalonSRX mainMotor;
+public class climb extends SubsystemBase {
+  // static TalonSRX mainMotor;
 
   /**
    * Creates a new Climb.
    */
-  public Climb() {
-    mainMotor = new TalonSRX(0); // motor port?
+  public climb() {
+    // mainMotor = new TalonSRX(); // motor port?
 
   }
 
@@ -29,7 +29,7 @@ public class Climb extends SubsystemBase {
   }
 
   public void move(double direction) {
-    mainMotor.set(ControlMode.PercentOutput, direction);
+    // mainMotor.set(ControlMode.PercentOutput, direction);
   }
 }
   

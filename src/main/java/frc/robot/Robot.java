@@ -121,14 +121,11 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
-  public static double getTriggers() {
-    if(x.getRawAxis(4) != -1.0 && x.getRawAxis(5)==-1.0){
-      return x.getRawAxis(4);
-    } else if(x.getRawAxis(4) == -1.0 && x.getRawAxis(5)!=-1.0) {
-      return -x.getRawAxis(5);
-    }
-    else{
-      return 0.0;
+  public static double getTriggers(){
+    if(x.getRawAxis(2) > x.getRawAxis(3)){
+      return x.getRawAxis(2);
+    } else {
+      return -x.getRawAxis(3);
     }
   
   }

@@ -61,6 +61,7 @@ public class DriveTrain extends SubsystemBase {
     // motorEncoder.setDistancePerPulse(1./256.);
     // if(motorEncoder.get() < 1000) {  } // < --- help
     drive.arcadeDrive(speed, turn,true);
+    // leftBack.set(1);
   }
 
   public void driveStraightGyro(double speed){
