@@ -15,15 +15,21 @@ public class DriveForward extends CommandBase {
   boolean turn;
   boolean drive;
   double turnSpeed;
+
   double startEncoder;
+  double curEncoder;
+
+  int StopPos;
+
   /**
    * Creates a new DriveForward.
    */
-  public DriveForward(boolean turn ,boolean drive ,double turnVal, double speed) {
+  public DriveForward(double turnVal, double speed, int stop) {
     this.speed = speed;
     this.turn = turn;
     this.drive = drive;
     this.turnSpeed = turnVal;
+    this.StopPos = stop;
 
     addRequirements(Robot.drive);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -33,29 +39,37 @@ public class DriveForward extends CommandBase {
   @Override
   public void initialize() {
     Robot.drive.calibrateGyro();
-    startEncoder = Robot.drive.getEncoder();
+    startEncoder = Robot.drive.getEncoderLB();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Robot.drive.getEncoder() - startEncoder < 50){
-      if(turn && drive){
-      Robot.drive.drive(speed, turnSpeed);
-      } else if(turn && drive == false){
-        Robot.drive.drive(0.0, turnSpeed);
-      }else if(drive && turn == false){
+//     if(turnSpeed<0){
+// //this needs to be tested to see true values and sides
+//       curEncoder =Robot.drive.getEncoderLB();
+//     }else if (turnSpeed>0){
+//       curEncoder =Robot.drive.getEncoderRB();
+//     }else{
+//       curEncoder =Robot.drive.getEncoderRB();
+//     }
+curEncoder =Robot.drive.getEncoderLB();
+    if(curEncoder - startEncoder < StopPos){
+      if(turnSpeed != 0.0){
+        Robot.drive.drive(speed, turnSpeed);
+      }else if(turnSpeed == 0.0){
         // Robot.drive.drive(speed, 0.0);
         Robot.drive.driveStraightGyro(speed);
         System.out.println("Running Gyro");
       }
-  }else{
-    Robot.drive.stop();
-    end(true);
-  }
+    }else{
+      Robot.drive.stop();
+      end(true);
+    }
   }
 
   // Called once the command ends or is interrupted.
+  // D@nte Was Here
   @Override
   public void end(boolean interrupted) {
   }

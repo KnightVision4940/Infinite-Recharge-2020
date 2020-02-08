@@ -37,6 +37,12 @@ public class DriveTrain extends SubsystemBase {
   static CANSparkMax leftBack;
   static CANSparkMax rightFront;
   static CANSparkMax rightBack;
+
+  static CANEncoder encoderLB;
+  static CANEncoder encoderLF;
+  static CANEncoder encoderRB;
+  static CANEncoder encoderRF;
+
   static ADXRS450_Gyro gyro;
 
   static DifferentialDrive drive;
@@ -46,6 +52,13 @@ public class DriveTrain extends SubsystemBase {
     leftBack = new CANSparkMax(leftB, MotorType.kBrushless);
     rightFront = new CANSparkMax(rightF, MotorType.kBrushless);
     rightBack = new CANSparkMax(rightB, MotorType.kBrushless);
+
+    encoderLB = new CANEncoder(leftBack);
+    encoderLF = new CANEncoder(leftFront);
+    encoderRB = new CANEncoder(rightBack);
+    encoderRF = new CANEncoder(rightFront);
+    
+
     SPI.Port kGyroPort = SPI.Port.kOnboardCS0;
     gyro = new ADXRS450_Gyro(kGyroPort);
     // leftFront = new WPI_VictorSPX(leftF);
@@ -87,18 +100,29 @@ public class DriveTrain extends SubsystemBase {
     // }
    
   }
-  public double getEncoder(){
-    CANEncoder encoderA = new CANEncoder(leftBack);
-    SmartDashboard.putNumber("Encoder Left Back", encoderA.getPosition());
-    CANEncoder encoderB = new CANEncoder(leftBack);
-    SmartDashboard.putNumber("Encoder Right Back", encoderB.getPosition());
-    CANEncoder encoderC = new CANEncoder(leftBack);
-    SmartDashboard.putNumber("Encoder Left Front", encoderC.getPosition());
-    CANEncoder encoderD = new CANEncoder(leftBack);
-    SmartDashboard.putNumber("Encoder Right Front", encoderD.getPosition());
-    return encoderA.getPosition();
+  public void getEncoder(){
+    
+    SmartDashboard.putNumber("Encoder Left Back", encoderLB.getPosition());
+    SmartDashboard.putNumber("Encoder Right Back", encoderLF.getPosition());
+    SmartDashboard.putNumber("Encoder Left Front", encoderRB.getPosition());
+    SmartDashboard.putNumber("Encoder Right Front", encoderRF.getPosition());
   }
 
+  public double getEncoderLB(){
+    return encoderLB.getPosition();
+  }
+
+  public double getEncoderLF(){
+    return encoderLF.getPosition();
+  }
+
+  public double getEncoderRB(){
+    return encoderRB.getPosition();
+  }  
+
+  public double getEncoderRF(){
+    return encoderRF.getPosition();
+  }
 
   @Override
   public void periodic() {
