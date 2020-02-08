@@ -43,6 +43,7 @@ public class DriveForward extends CommandBase {
     }else if(drive && turn == false){
       Robot.drive.drive(speed, 0.0);
     }
+    Robot.drive.getEncoder();
   }
 
   // Called once the command ends or is interrupted.

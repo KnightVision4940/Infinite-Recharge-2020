@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 // import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 // import com.revrobotics.SparkMax;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 // import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -69,6 +71,16 @@ public class DriveTrain extends SubsystemBase {
     double error = -gyro.getAngle(); 
     double turn = p * error;
     drive.arcadeDrive(speed, turn);
+  }
+  public void getEncoder(){
+    CANEncoder encoderA = new CANEncoder(leftBack);
+    SmartDashboard.putNumber("Encoder Left Back", encoderA.getPosition());
+    CANEncoder encoderB = new CANEncoder(leftBack);
+    SmartDashboard.putNumber("Encoder Right Back", encoderB.getPosition());
+    CANEncoder encoderC = new CANEncoder(leftBack);
+    SmartDashboard.putNumber("Encoder Left Front", encoderC.getPosition());
+    CANEncoder encoderD = new CANEncoder(leftBack);
+    SmartDashboard.putNumber("Encoder Right Front", encoderD.getPosition());
   }
 
 
