@@ -12,12 +12,13 @@ import frc.robot.commands.DriveForward;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoOne extends SequentialCommandGroup {
+public class AutoLeft extends SequentialCommandGroup {
   /**
    * Creates a new AutoOne.
    */
-  public AutoOne() {
-    super(new DriveForward(true,false,0.5,0.5));
+  public AutoLeft() {
+    super(new DriveForward(false,true,0,0.5),new DriveForward(true,false,0,0.5));
+    // addCommands(new DriveForward(true,false,0,0.5));
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
   }

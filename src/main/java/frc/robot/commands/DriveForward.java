@@ -15,6 +15,7 @@ public class DriveForward extends CommandBase {
   boolean turn;
   boolean drive;
   double turnSpeed;
+  double startEncoder;
   /**
    * Creates a new DriveForward.
    */
@@ -31,19 +32,27 @@ public class DriveForward extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Robot.drive.calibrateGyro();
+    startEncoder = Robot.drive.getEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(turn && drive){
-    Robot.drive.drive(speed, turnSpeed);
-    } else if(turn && drive == false){
-      Robot.drive.drive(0.0, turnSpeed);
-    }else if(drive && turn == false){
-      Robot.drive.drive(speed, 0.0);
-    }
-    Robot.drive.getEncoder();
+    if(Robot.drive.getEncoder() - startEncoder < 50){
+      if(turn && drive){
+      Robot.drive.drive(speed, turnSpeed);
+      } else if(turn && drive == false){
+        Robot.drive.drive(0.0, turnSpeed);
+      }else if(drive && turn == false){
+        // Robot.drive.drive(speed, 0.0);
+        Robot.drive.driveStraightGyro(speed);
+        System.out.println("Running Gyro");
+      }
+  }else{
+    Robot.drive.stop();
+    end(true);
+  }
   }
 
   // Called once the command ends or is interrupted.

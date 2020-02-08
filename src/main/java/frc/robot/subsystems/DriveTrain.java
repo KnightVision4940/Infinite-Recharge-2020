@@ -16,6 +16,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Timer;
 // import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -65,14 +66,28 @@ public class DriveTrain extends SubsystemBase {
     drive.arcadeDrive(speed, turn,true);
     // leftBack.set(1);
   }
+  public void calibrateGyro(){
+    // gyro.calibrate();
+    gyro.reset();
+  }
+  public void stop(){
+    drive.arcadeDrive(0, 0,true);
+  }
 
   public void driveStraightGyro(double speed){
-    double p = 1.0;
+    // double timePassed = Timer.getFPGATimestamp();
+    // SmartDashboard.putNumber("Time Passed Thing", timePassed);
+    // if(timePassed % 0.4 < 0.1 && timePassed % 0.4 > -0.1){
+    double p = 0.05;
     double error = -gyro.getAngle(); 
     double turn = p * error;
     drive.arcadeDrive(speed, turn);
+    // }else{
+    //   drive.arcadeDrive(speed, 0);
+    // }
+   
   }
-  public void getEncoder(){
+  public double getEncoder(){
     CANEncoder encoderA = new CANEncoder(leftBack);
     SmartDashboard.putNumber("Encoder Left Back", encoderA.getPosition());
     CANEncoder encoderB = new CANEncoder(leftBack);
@@ -81,6 +96,7 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("Encoder Left Front", encoderC.getPosition());
     CANEncoder encoderD = new CANEncoder(leftBack);
     SmartDashboard.putNumber("Encoder Right Front", encoderD.getPosition());
+    return encoderA.getPosition();
   }
 
 
