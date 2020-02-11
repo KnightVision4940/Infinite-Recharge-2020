@@ -7,14 +7,18 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
   /**
    * Creates a new Intake.
    */
-  public Intake() {
-
+  TalonSRX motor;
+  public void move() {
+    motor = new TalonSRX(0); // <-- port
   }
 
   @Override
