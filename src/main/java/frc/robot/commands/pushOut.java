@@ -8,54 +8,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
+import frc.robot.subsystems.Deployer;
 
-public class DriveForward extends CommandBase {
-  double speed = 0;
-  boolean turn;
-  boolean drive;
-  double turnSpeed;
-
-  double startEncoder;
-  double curEncoder;
-
-  int StopPos;
-
+public class pushOut extends CommandBase {
   /**
-   * Creates a new DriveForward.
+   * Creates a new pushOut.
    */
-  public DriveForward(double turnVal, double speed, int stop) {
-    this.speed = speed;
-    this.turnSpeed = turnVal;
-    this.StopPos = stop;
-
-    addRequirements(Robot.drive);
+  public pushOut() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.drive.resetGyro();
-    startEncoder = Robot.drive.getEncoderLB();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    curEncoder =Robot.drive.getEncoderLB();
-    if(curEncoder - startEncoder < StopPos){
-      Robot.drive.autoDrive(speed, turnSpeed);
-    }else{
-      Robot.drive.stop();
-      end(true);
-    }
-    Robot.drive.encodersOnDashboard();
   }
 
   // Called once the command ends or is interrupted.
-  // D@nte Was Here
   @Override
   public void end(boolean interrupted) {
   }
