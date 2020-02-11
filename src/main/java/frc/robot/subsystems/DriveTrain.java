@@ -86,22 +86,23 @@ public class DriveTrain extends SubsystemBase {
   public void stop(){
     drive.arcadeDrive(0, 0,true);
   }
+  public void autoDrive(double speed, double turnSpeed){
+    if(turnSpeed != 0.0){
+      drive(speed, turnSpeed);
+    }else if(turnSpeed == 0.0){
+      driveStraightGyro(speed);
+      System.out.println("Running Gyro");
+    }
+  }
 
   public void driveStraightGyro(double speed){
-    // double timePassed = Timer.getFPGATimestamp();
-    // SmartDashboard.putNumber("Time Passed Thing", timePassed);
-    // if(timePassed % 0.4 < 0.1 && timePassed % 0.4 > -0.1){
     double p = 0.05;
     double error = -gyro.getAngle(); 
     double turn = p * error;
-    drive.arcadeDrive(speed, turn);
-    // }else{
-    //   drive.arcadeDrive(speed, 0);
-    // }
-   
+    drive.arcadeDrive(speed, turn);   
   }
-  public void getEncoder(){
-    
+
+  public void encodersOnDashboard(){
     SmartDashboard.putNumber("Encoder Left Back", encoderLB.getPosition());
     SmartDashboard.putNumber("Encoder Right Back", encoderLF.getPosition());
     SmartDashboard.putNumber("Encoder Left Front", encoderRB.getPosition());

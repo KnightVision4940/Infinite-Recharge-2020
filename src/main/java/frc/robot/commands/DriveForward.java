@@ -26,8 +26,6 @@ public class DriveForward extends CommandBase {
    */
   public DriveForward(double turnVal, double speed, int stop) {
     this.speed = speed;
-    this.turn = turn;
-    this.drive = drive;
     this.turnSpeed = turnVal;
     this.StopPos = stop;
 
@@ -53,19 +51,14 @@ public class DriveForward extends CommandBase {
 //     }else{
 //       curEncoder =Robot.drive.getEncoderRB();
 //     }
-curEncoder =Robot.drive.getEncoderLB();
+    curEncoder =Robot.drive.getEncoderLB();
     if(curEncoder - startEncoder < StopPos){
-      if(turnSpeed != 0.0){
-        Robot.drive.drive(speed, turnSpeed);
-      }else if(turnSpeed == 0.0){
-        // Robot.drive.drive(speed, 0.0);
-        Robot.drive.driveStraightGyro(speed);
-        System.out.println("Running Gyro");
-      }
+      Robot.drive.autoDrive(speed, turnSpeed);
     }else{
       Robot.drive.stop();
       end(true);
     }
+    Robot.drive.encodersOnDashboard();
   }
 
   // Called once the command ends or is interrupted.
