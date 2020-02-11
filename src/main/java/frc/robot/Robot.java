@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.OutTakeSubsystem;
+import frc.robot.subsystems.Deployer;
 import frc.robot.commands.AutoLeft;
 import frc.robot.commands.Drive;
 import frc.robot.Constants;
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
   public static DriveTrain drive = new DriveTrain(Constants.LeftF_drive, Constants.LeftB_drive, Constants.RightF_drive, Constants.RightB_drive);
   public static final XboxController x = new XboxController(Constants.xbox_drive);
   public static OutTakeSubsystem sub_outtake = new OutTakeSubsystem();
+  public static Deployer pusher = new Deployer();
 
   /**
    * This function is run when the robot is first started up and should be used for any
