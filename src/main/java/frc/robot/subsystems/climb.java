@@ -10,17 +10,19 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class climb extends SubsystemBase {
+public class Climb extends SubsystemBase {
   // static TalonSRX mainMotor;
-
+  static TalonSRX Motor1;
+  static TalonSRX Motor2;
   /**
    * Creates a new Climb.
    */
-  public climb() {
-    // mainMotor = new TalonSRX(); // motor port?
-
+  public Climb() {
+    Motor1 = new TalonSRX(1);
+    Motor2 = new TalonSRX(0);
   }
 
   @Override
@@ -28,8 +30,8 @@ public class climb extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void move(double direction) {
-    // mainMotor.set(ControlMode.PercentOutput, direction);
+  public void move(double speed1, double speed2) {
+    Motor1.set(ControlMode.PercentOutput, speed1);
+    Motor2.set(ControlMode.PercentOutput, speed2);
   }
 }
-  
