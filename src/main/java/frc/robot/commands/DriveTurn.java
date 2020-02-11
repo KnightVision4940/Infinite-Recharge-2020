@@ -8,14 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
-import frc.robot.subsystems.OutTakeSubsystem;
 
-public class OutTake extends CommandBase {
+public class DriveTurn extends CommandBase {
   /**
-   * Creates a new OutTake.
+   * Creates a new Turn.
    */
-  public OutTake() {
+  public DriveTurn() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,21 +25,16 @@ public class OutTake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    spinMotor();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
-  }
-
-  public void spinMotor() {
-    Robot.sub_outtake.move(1);
-    //you are good at coding!!!!!!!!
   }
 }

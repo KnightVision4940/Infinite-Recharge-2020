@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
 
   public static DriveTrain drive = new DriveTrain(Constants.LeftF_drive, Constants.LeftB_drive, Constants.RightF_drive, Constants.RightB_drive);
   public static final XboxController x = new XboxController(Constants.xbox_drive);
-  OutTakeSubsystem sub_outtake = new OutTakeSubsystem();
+  public static OutTakeSubsystem sub_outtake = new OutTakeSubsystem();
 
   /**
    * This function is run when the robot is first started up and should be used for any

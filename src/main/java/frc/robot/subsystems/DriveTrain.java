@@ -79,9 +79,11 @@ public class DriveTrain extends SubsystemBase {
     drive.arcadeDrive(speed, turn,true);
     // leftBack.set(1);
   }
-  public void calibrateGyro(){
-    // gyro.calibrate();
+  public void resetGyro(){
     gyro.reset();
+  }
+  public void calibrateGyro(){
+    gyro.calibrate();
   }
   public void stop(){
     drive.arcadeDrive(0, 0,true);
@@ -92,6 +94,14 @@ public class DriveTrain extends SubsystemBase {
     }else if(turnSpeed == 0.0){
       driveStraightGyro(speed);
       System.out.println("Running Gyro");
+    }
+  }
+
+  public boolean turnToAngle(int angle, double speed){
+    if(angle > gyro.getAngle()){
+      drive(0,1);
+    }else{
+
     }
   }
 
