@@ -99,8 +99,11 @@ public class DriveTrain extends SubsystemBase {
 
   public boolean turnToAngle(int angle, double speed){
     if(angle > gyro.getAngle()){
-      drive(0,1);
+      drive(0,speed);
+      return false;
     }else{
+      stop();
+      return true;
     }
   }
 
