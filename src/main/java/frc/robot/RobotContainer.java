@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.AutoLeft;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.OutTake;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -45,6 +47,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     Joystick xbox = new Joystick(Constants.xbox_drive);
+    JoystickButton aButton = new JoystickButton(xbox, 0);
+    JoystickButton xButton = new JoystickButton(xbox, 2);
+    // JoystickButton bButton = new JoystickButton(xbox, 1);
+    // JoystickButton yButton = new JoystickButton(xbox, 3);
+    aButton.whileHeld(new OutTake());
+    xButton.toggleWhenPressed(new OutTake());
   }
 
 
