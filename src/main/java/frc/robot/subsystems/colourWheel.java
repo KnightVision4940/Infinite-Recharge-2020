@@ -57,7 +57,9 @@ public class colourWheel extends SubsystemBase {
     redValue = detectedColour.red;
     blueValue = detectedColour.blue;
     greenValue = detectedColour.green;
-    
+    SmartDashboard.putNumber("Red", detectedColour.red);
+    SmartDashboard.putNumber("Green", detectedColour.green);
+    SmartDashboard.putNumber("Blue", detectedColour.blue);
     //Blue
     if(redValue == 0 && blueValue == 255 && greenValue == 255){
       currentColour = 0;
