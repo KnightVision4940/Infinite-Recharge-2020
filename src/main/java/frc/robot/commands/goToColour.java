@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.colourWheel;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -27,29 +28,37 @@ public class goToColour extends CommandBase {
   public void initialize() {
     String gameData;
     gameData = DriverStation.getInstance().getGameSpecificMessage();
+    SmartDashboard.putString("Color", "None");
+    String[] colorNames = {"Blue", "Yellow", "Red", "Green"};
     if(gameData.length() > 0)
-    {
+    { 
       switch (gameData.charAt(0))
       {
-        case 'B' :
+        case 'B':
           colourToGoTo = 0;
+          SmartDashboard.putString("Color", "Blue");
           break;
-        case 'G' :
+        case 'G':
           colourToGoTo = 3;
+          SmartDashboard.putString("Color", "Green");
           break;
-        case 'R' :
+        case 'R':
           colourToGoTo = 2;
+          SmartDashboard.putString("Color", "Red");
           break;
-        case 'Y' :
+        case 'Y':
           colourToGoTo = 1;
+          SmartDashboard.putString("Color", "Yellow");
           break;
-        default :
+        default:
           //This is corrupt data
           break;
       }
+      
     } else {
       //Code for no data received yet
     }
+    SmartDashboard.putString("Color", colorNames[colourToGoTo]);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
