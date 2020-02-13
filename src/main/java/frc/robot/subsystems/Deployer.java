@@ -16,11 +16,11 @@ public class Deployer extends SubsystemBase {
    * Creates a new Deployer.
    */
   public Deployer() {
-    s1 = new Solenoid(1);
+    // s1 = new Solenoid(1);
   }
 
   public void push(){
-    s1.set(true);
+    // s1.set(true);
   }
   @Override
   public void periodic() {

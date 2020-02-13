@@ -33,6 +33,7 @@ public class OutTake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.sub_outtake.move(0);
   }
   // Returns true when the command should end.
   @Override
@@ -41,7 +42,7 @@ public class OutTake extends CommandBase {
   }
 
   public void spinMotor() {
-    Robot.sub_outtake.move(1);
+    Robot.sub_outtake.move(-1);
     //you are good at coding!!!!!!!!
   }
 }

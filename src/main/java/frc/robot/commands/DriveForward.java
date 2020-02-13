@@ -12,10 +12,6 @@ import frc.robot.Robot;
 
 public class DriveForward extends CommandBase {
   double speed = 0;
-  boolean turn;
-  boolean drive;
-  double turnSpeed;
-
   double startEncoder;
   double curEncoder;
 
@@ -24,9 +20,8 @@ public class DriveForward extends CommandBase {
   /**
    * Creates a new DriveForward.
    */
-  public DriveForward(double turnVal, double speed, int stop) {
+  public DriveForward(double speed, int stop) {
     this.speed = speed;
-    this.turnSpeed = turnVal;
     this.StopPos = stop;
 
     addRequirements(Robot.drive);
@@ -46,7 +41,7 @@ public class DriveForward extends CommandBase {
 
     curEncoder =Robot.drive.getEncoderLB();
     if(curEncoder - startEncoder < StopPos){
-      Robot.drive.autoDrive(speed, turnSpeed);
+      Robot.drive.autoDrive(speed, 0);
     }else{
       Robot.drive.stop();
       end(true);
