@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.TimedRobot;
 
 import com.revrobotics.CANEncoder;
 // import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -74,7 +75,7 @@ public class DriveTrain extends SubsystemBase {
     SpeedControllerGroup Left = new SpeedControllerGroup(leftFront,leftBack);
     SpeedControllerGroup Right = new SpeedControllerGroup(rightFront, rightBack);
     
-    drive = new DifferentialDrive(Left, Right);
+    
   }
   //Without Gyro Functionality
   public void drive(double speed, double turn){
@@ -146,21 +147,16 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
-  @Override
-  public void robotInit(){
-    ultrasonic. setAutomaticMode(true);
+  public void getUltrasensor(){
+    final int UltrasonicPort = 0;
+    final DifferentialDrive m_robotDrive;
   }
 
-  @Override
-  public void automousPeriodic(){
-  if (ultrasonic.getRangeInches() > 10) {
-    drive.tankDrive(.5, .5);
-  }
-  else {
-    drive.tankDrive(0, 0);
-  }
-
-  }
- 
+  public void teleopPeridic(){
+    drive(0,1);
 }
+}
+
+
+ 
+
