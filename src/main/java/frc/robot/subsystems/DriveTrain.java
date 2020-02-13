@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+
 import com.revrobotics.CANEncoder;
 // import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Ultrasonic;
 // import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,6 +35,9 @@ public class DriveTrain extends SubsystemBase {
   // static WPI_VictorSPX leftBack;
   // static WPI_VictorSPX rightFront;
   // static WPI_VictorSPX rightBack;
+
+  Ultrasonic ultrasonic = new Ultrasonic(1, 2);
+
   static CANSparkMax leftFront;
   static CANSparkMax leftBack;
   static CANSparkMax rightFront;
@@ -141,4 +146,21 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  @Override
+  public void robotInit(){
+    ultrasonic. setAutomaticMode(true);
+  }
+
+  @Override
+  public void automousPeriodic(){
+  if (ultrasonic.getRangeInches() > 10) {
+    drive.tankDrive(.5, .5);
+  }
+  else {
+    drive.tankDrive(0, 0);
+  }
+
+  }
+ 
 }
