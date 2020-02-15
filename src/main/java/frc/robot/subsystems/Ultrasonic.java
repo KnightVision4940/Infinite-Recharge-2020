@@ -12,10 +12,6 @@ import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-/**
- * This is a sample program demonstrating how to use an ultrasonic sensor and
- * proportional control to maintain a set distance from an object.
- */
 
 public class Ultrasonic extends TimedRobot {
   // distance in inches the robot wants to stay from an object
@@ -23,9 +19,6 @@ public class Ultrasonic extends TimedRobot {
 
   // factor to convert sensor values to a distance in inches
   private static final double kValueToInches = 0.125;
-
-  // proportional speed constant
-  private static final double kP = 0.05;
 
   private static final int kLeftMotorPort = 0;
   private static final int kRightMotorPort = 1;
@@ -46,9 +39,10 @@ public class Ultrasonic extends TimedRobot {
     double currentDistance = m_ultrasonic.getValue() * kValueToInches;
 
     // convert distance error to a motor speed
-    double currentSpeed = (kHoldDistance - currentDistance) * kP;
+   
 
     // drive robot
+    
     m_robotDrive.arcadeDrive(currentSpeed, 0);
   }
 }

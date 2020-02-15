@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
@@ -30,6 +31,7 @@ public class Drive extends CommandBase {
   public void execute() {
     Robot.drive.drive(Robot.getTriggers(), Robot.getXLeft());
     Robot.c_wheel.putColour();
+    SmartDashboard.putNumber("Ultrasonic", Robot.drive.getUltrasonic());
   }
 
   // Called once the command ends or is interrupted.

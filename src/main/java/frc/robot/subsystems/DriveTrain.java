@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-
-
 import com.revrobotics.CANEncoder;
 // import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
@@ -16,15 +14,13 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Timer;
 // import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import edu.wpi.first.wpilibj.Encoder;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -47,6 +43,11 @@ public class DriveTrain extends SubsystemBase {
   static CANEncoder encoderRF;
 
   static ADXRS450_Gyro gyro;
+
+  private static final int kUltrasonicPort = 0;
+  private static final double kValueToInches = 0.125;
+  
+  private final AnalogInput m_ultrasonic = new AnalogInput(kUltrasonicPort);
 
   static DifferentialDrive drive;
     
@@ -138,6 +139,10 @@ public class DriveTrain extends SubsystemBase {
 
   public double getEncoderRF(){
     return encoderRF.getPosition();
+  }
+
+  public double getUltrasonic(){
+    return m_ultrasonic.getValue() * kValueToInches;
   }
 
   @Override
