@@ -54,7 +54,7 @@ public class goToColour extends CommandBase {
           //This is corrupt data
           break;
       }
-      sm
+      
     } else {
       //Code for no data received yet
     }
