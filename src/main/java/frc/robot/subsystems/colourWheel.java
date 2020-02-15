@@ -67,19 +67,19 @@ public class colourWheel extends SubsystemBase {
     SmartDashboard.putNumber("Green", detectedColour.green);
     SmartDashboard.putNumber("Blue", detectedColour.blue);
     //Blue
-    if(redValue == 0 && blueValue == 255 && greenValue == 255){
+    if(redValue >= 0.15 && redValue <= 0.20 && blueValue >= 0.39 && blueValue <= 0.45 && greenValue >= 0.39 && greenValue <= 0.45){
       currentColour = 0;
     }
     //Yellow
-    if(redValue == 255 && blueValue == 255 && greenValue == 0){
+    if(redValue >= 0.15 && redValue <= 0.20 && blueValue >= 0.39 && blueValue <= 0.45 && greenValue >= 0.39 && greenValue <= 0.45){
       currentColour = 1;
     }
     //Red
-    if(redValue == 255 && blueValue == 0 && greenValue == 0){
+    if(redValue >= 0.15 && redValue <= 0.20 && blueValue >= 0.39 && blueValue <= 0.45 && greenValue >= 0.39 && greenValue <= 0.45){
       currentColour = 2;
     }
     //Green
-    if(redValue == 0 && blueValue == 255 && greenValue == 0){
+    if(redValue >= 0.15 && redValue <= 0.20 && blueValue >= 0.39 && blueValue <= 0.45 && greenValue >= 0.39 && greenValue <= 0.45){
       currentColour = 3;
     }
     if(currentColour == colour){
