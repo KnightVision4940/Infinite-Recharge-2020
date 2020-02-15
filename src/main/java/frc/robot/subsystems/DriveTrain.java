@@ -7,7 +7,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.TimedRobot;
+
 
 import com.revrobotics.CANEncoder;
 // import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Ultrasonic;
 // import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,8 +35,6 @@ public class DriveTrain extends SubsystemBase {
   // static WPI_VictorSPX leftBack;
   // static WPI_VictorSPX rightFront;
   // static WPI_VictorSPX rightBack;
-
-  Ultrasonic ultrasonic = new Ultrasonic(1, 2);
 
   static CANSparkMax leftFront;
   static CANSparkMax leftBack;
@@ -147,14 +144,7 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void getUltrasensor(){
-    final int UltrasonicPort = 0;
-    final DifferentialDrive m_robotDrive;
-  }
 
-  public void teleopPeridic(){
-    drive(0,1);
-}
 }
 
 
