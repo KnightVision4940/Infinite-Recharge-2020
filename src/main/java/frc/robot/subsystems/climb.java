@@ -13,14 +13,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Climb extends SubsystemBase {
+public class climb extends SubsystemBase {
   // static TalonSRX mainMotor;
   static TalonSRX Motor1;
   static TalonSRX Motor2;
   /**
    * Creates a new Climb.
    */
-  public Climb() {
+  public climb() {
     Motor1 = new TalonSRX(1);
     Motor2 = new TalonSRX(0);
   }
