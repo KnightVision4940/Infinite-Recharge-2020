@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
@@ -16,13 +17,15 @@ public class DriveForward extends CommandBase {
   double curEncoder;
 
   int StopPos;
+  private double ultrasonic;
 
   /**
    * Creates a new DriveForward.
    */
-  public DriveForward(double speed, int stop) {
+  public DriveForward(double speed, int stop, double ultrasonic) {
     this.speed = speed;
     this.StopPos = stop;
+    this.ultrasonic = ultrasonic;
 
     addRequirements(Robot.drive);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -39,6 +42,25 @@ public class DriveForward extends CommandBase {
   @Override
   public void execute() {
 
+    SmartDashboard.putNumber("Ultrasonic", Robot.drive.getUltrasonic());
+    if(ultrasonic == 0){
+      ultrasonicDrive();
+    }else{
+      encoderDrive();
+    }
+   
+  }
+
+  // Called once the command ends or is interrupted.
+  // g@briel Was Here
+  public void ultrasonicDrive(){
+    if(Robot.drive.getUltrasonic() <= ultrasonic){
+      Robot.drive.stop();
+    }else{
+      Robot.drive.drive(speed, 0);
+    }
+  }
+  public void encoderDrive(){
     curEncoder =Robot.drive.getEncoderLB();
     if(curEncoder - startEncoder < StopPos){
       Robot.drive.autoDrive(speed, 0);
@@ -48,9 +70,6 @@ public class DriveForward extends CommandBase {
     }
     Robot.drive.encodersOnDashboard();
   }
-
-  // Called once the command ends or is interrupted.
-  // D@nte Was Here
   @Override
   public void end(boolean interrupted) {
   }
