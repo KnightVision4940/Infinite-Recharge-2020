@@ -29,6 +29,7 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
     Robot.drive.drive(Robot.getTriggers(), Robot.getXLeft());
+    Robot.c_wheel.putColour();
   }
 
   // Called once the command ends or is interrupted.

@@ -51,6 +51,12 @@ public class colourWheel extends SubsystemBase {
   //1 --> Yellow --> 255 255 0
   //2 --> Red --> 255 0 0
   //3 --> Green --> 0 255 0
+  public void putColour(){
+    Color detectedColour = m_colorSensor.getColor();
+    SmartDashboard.putNumber("Red", detectedColour.red);
+    SmartDashboard.putNumber("Green", detectedColour.green);
+    SmartDashboard.putNumber("Blue", detectedColour.blue);
+  }
   public void findColour(int colour){
     Color detectedColour = m_colorSensor.getColor();
     int currentColour = 0;
