@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.OutTakeSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OutTake extends CommandBase {
   /**
@@ -28,6 +29,7 @@ public class OutTake extends CommandBase {
   @Override
   public void execute() {
     spinMotor();
+    SmartDashboard.putNumber("Velocity", Robot.sub_outtake.getVelocity());
   }
 
   // Called once the command ends or is interrupted.

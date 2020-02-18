@@ -148,7 +148,3 @@ public class Robot extends TimedRobot {
     return rawPos;
   }
 }
-
-
-
-
