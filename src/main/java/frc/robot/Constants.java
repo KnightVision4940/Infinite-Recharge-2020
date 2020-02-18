@@ -25,5 +25,8 @@ public final class Constants {
     public static int RightF_drive = 3;
     public static int RightB_drive = 2;
     public static int colourWheel = 16;
+    public static int OutTakeLeft = 100;
+    public static int OutTakeRight = 101;
+    public static int OutTakeMiddle = 4;
 
 }

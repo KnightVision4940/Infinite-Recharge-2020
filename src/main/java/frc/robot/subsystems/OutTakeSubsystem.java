@@ -9,10 +9,12 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class OutTakeSubsystem extends SubsystemBase {
   /**
@@ -20,14 +22,16 @@ public class OutTakeSubsystem extends SubsystemBase {
    */
   // static CANSparkMax RightMotor;
   static CANSparkMax MiddleMotor;
+  static TalonSRX RightMotor;
+  static TalonSRX LeftMotor;
   // static CANSparkMax LeftMotor;
   int speed = -1;
 
   public OutTakeSubsystem() {
 
-    // RightMotor = new CANSparkMax(0, null);
-    MiddleMotor = new CANSparkMax(4,MotorType.kBrushless);
-    // LeftMotor = new CANSparkMax(2, null);
+    RightMotor = new TalonSRX(Constants.OutTakeRight);
+    MiddleMotor = new CANSparkMax(Constants.OutTakeMiddle,MotorType.kBrushless);
+    LeftMotor = new TalonSRX(Constants.OutTakeLeft);
 
   }
 
@@ -37,9 +41,11 @@ public class OutTakeSubsystem extends SubsystemBase {
   }
 
   public void move(double speed) {
-    // RightMotor.set(speed);
+     RightMotor.set(ControlMode.PercentOutput, -1);
     MiddleMotor.set(speed);
     System.out.println("Running");
-    // LeftMotor.set(speed);
+    LeftMotor.set(ControlMode.PercentOutput, 1);
+  
+
   }
 }
