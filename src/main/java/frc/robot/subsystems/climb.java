@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class climb extends SubsystemBase {
   // static TalonSRX mainMotor;
@@ -21,8 +22,8 @@ public class climb extends SubsystemBase {
    * Creates a new Climb.
    */
   public climb() {
-    Motor1 = new TalonSRX(1);
-    Motor2 = new TalonSRX(0);
+    Motor1 = new TalonSRX(Constants.Motor1Climb);
+    Motor2 = new TalonSRX(Constants.Motor2Climb);
   }
 
   @Override

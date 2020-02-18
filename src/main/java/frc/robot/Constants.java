@@ -26,7 +26,11 @@ public final class Constants {
     public static int RightB_drive = 2;
     public static int colourWheel = 16;
     public static int OutTakeLeft = 100;
-    public static int OutTakeRight = 101;
+    public static int OutTakeRight = 100;
     public static int OutTakeMiddle = 4;
+    public static int Motor1Climb = 100;
+    public static int Motor2Climb = 100;
+    public static int Solenoid = 100;
+    
 
 }

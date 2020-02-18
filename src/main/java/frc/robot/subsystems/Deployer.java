@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class Deployer extends SubsystemBase {
@@ -16,7 +17,7 @@ public class Deployer extends SubsystemBase {
    * Creates a new Deployer.
    */
   public Deployer() {
-    s1 = new Solenoid(1);
+    s1 = new Solenoid(Constants.Solenoid);
   }
 
   public void push(){
