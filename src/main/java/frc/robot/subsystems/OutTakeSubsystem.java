@@ -11,7 +11,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,8 +27,9 @@ public class OutTakeSubsystem extends SubsystemBase {
   static CANSparkMax MiddleMotor;
   static TalonSRX RightMotor;
   static TalonSRX LeftMotor;
+  static CANPIDController pid;
   // static CANSparkMax LeftMotor;
-  int speed = -1;
+  static int speed = -1;
 
   static CANEncoder outtakeEncoder;
 
@@ -35,6 +38,7 @@ public class OutTakeSubsystem extends SubsystemBase {
     LeftMotor = new TalonSRX(Constants.OutTakeLeft);
     MiddleMotor = new CANSparkMax(Constants.OutTakeMiddle,MotorType.kBrushless);
     RightMotor = new TalonSRX(Constants.OutTakeRight);
+    pid = new CANPIDController(MiddleMotor);
 
   }
 
@@ -45,10 +49,18 @@ public class OutTakeSubsystem extends SubsystemBase {
 
   public void move(double speed) {
      RightMotor.set(ControlMode.PercentOutput, -1);
-    MiddleMotor.set(speed);
-    System.out.println("Running");
+    // MiddleMotor.set(speed);
     LeftMotor.set(ControlMode.PercentOutput, 1);
-  
+  }
+
+  public void movePID(double maxRPM, double p, double i, double d, double ff){
+    pid.setP(p);
+    pid.setI(i);
+    pid.setD(d);
+    pid.setIZone(0);
+    pid.setFF(ff);
+    pid.setOutputRange(0, 1);
+    pid.setReference(maxRPM, ControlType.kVelocity);
 
   }
 
