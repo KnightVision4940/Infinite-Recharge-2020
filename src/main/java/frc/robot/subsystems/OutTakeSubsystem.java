@@ -31,9 +31,16 @@ public class OutTakeSubsystem extends SubsystemBase {
 
   public OutTakeSubsystem() {
 
+<<<<<<< Updated upstream
     LeftMotor = new TalonSRX(Constants.OutTakeLeft);
     MiddleMotor = new CANSparkMax(Constants.OutTakeMiddle,MotorType.kBrushless);
     RightMotor = new TalonSRX(Constants.OutTakeRight);
+=======
+    // RightMotor = new CANSparkMax(0, null);
+    MiddleMotor = new CANSparkMax(4,MotorType.kBrushless);
+    // LeftMotor = new CANSparkMax(2, null);
+    outtakeEncoder = new CANEncoder(MiddleMotor);
+>>>>>>> Stashed changes
 
   }
 
@@ -49,6 +56,10 @@ public class OutTakeSubsystem extends SubsystemBase {
     LeftMotor.set(ControlMode.PercentOutput, 1);
   
 
+  }
+
+  public double getVelocity(){
+    return outtakeEncoder.getVelocity();
   }
 
   public double getVelocity(){
