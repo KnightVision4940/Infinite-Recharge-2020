@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,18 +24,19 @@ public class colourWheel extends SubsystemBase {
    */
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
-  private TalonSRX motor = new TalonSRX(Constants.colourWheel);
-  private int speed = 1;
-  private double redValue = 0;
-  private double greenValue = 0;
-  private double blueValue = 0;
-  private double redRange=0.02;
-  private double blueRange=0.02;
-  private double greenRange=0.02;
+  public static Victor motor = new Victor(0);
+  private double speed = 0.4;
+  private double redV = 0;
+  private double greenV = 0;
+  private double blueV = 0;
+  private double redRange=0.1;
+  private double blueRange=0.1;
+  private double greenRange=0.1;
   private double red[] = {0.47,0.36,0.13};
   private double blue[] = {0.15,0.42,0.42};
-  private double green[] = {0.2,0.5,0.2};
-  private double yellow[] = {0.32,0.53,0.24};
+  private double green[] = {0.16,0.56,0.25};
+  private double yellow[] = {0.32,0.53,0.13};
+  private String colours[] = {"Red", "Yellow", "Blue", "Green","Other"};
 
   public colourWheel() {
    
@@ -67,33 +69,39 @@ public class colourWheel extends SubsystemBase {
   public void findColour(int colour){
     Color detectedColour = m_colorSensor.getColor();
     int currentColour = 0;
-    redValue = detectedColour.red;
-    blueValue = detectedColour.blue;
-    greenValue = detectedColour.green;
+    redV = detectedColour.red;
+    blueV = detectedColour.blue;
+    greenV = detectedColour.green;
     SmartDashboard.putNumber("Red", detectedColour.red);
     SmartDashboard.putNumber("Green", detectedColour.green);
     SmartDashboard.putNumber("Blue", detectedColour.blue);
-    //Red
-    if(redValue >= red[0] + redRange && redValue <= red[0] - redRange && blueValue >= red[1] + blueRange && blueValue <= red[1] - blueRange && greenValue >= red[2]+greenRange && greenValue <= red[2]-greenRange){
+    
+    if(inRange(redV, red[0] - redRange, red[0] + redRange, greenV, red[1] - greenRange, red[1] + greenRange, blueV, red[2] - blueRange, red[2] + blueRange)){
+      //red
       currentColour = 0;
-    }
-    //Yellow
-    if(redValue >=  yellow[0] + redRange && redValue <= yellow[0] - redRange && blueValue >= yellow[1] + blueRange && blueValue <= yellow[1] - blueRange && greenValue >= yellow[2] + greenRange && greenValue <= yellow[2] - greenRange){
+    }else if(inRange(redV, yellow[0] - redRange, yellow[0] + redRange, greenV, yellow[1] - greenRange, yellow[1] + greenRange, blueV, yellow[2] - blueRange, yellow[2] + blueRange)){
+      //yellow
       currentColour = 1;
     }
-    //Blue
-    if(redValue >=  blue[0] + redRange && redValue <= blue[0] - redRange && blueValue >= blue[1] + blueRange && blueValue <= blue[1] - blueRange && greenValue >= blue[2] + greenRange && greenValue <= blue[2] - greenRange){
+    else if(inRange(redV, blue[0] - redRange, blue[0] + redRange, greenV, blue[1] - greenRange, blue[1] + greenRange, blueV, blue[2] - blueRange, blue[2] + blueRange)){
+      //blue
       currentColour = 2;
     }
-    //Green
-    if(redValue >=  green[0] + redRange && redValue <= green[0] - redRange && blueValue >= green[1] + blueRange && blueValue <= green[1] - blueRange && greenValue >= green[2] + greenRange && greenValue <= green[2] - greenRange){
+    else if(inRange(redV, green[0] - redRange, green[0] + redRange, greenV, green[1] - greenRange, green[1] + greenRange, blueV, green[2] - blueRange, green[2] + blueRange)){
+      //green
       currentColour = 3;
-    }
-    if(currentColour == colour){
-      motor.set(ControlMode.PercentOutput, 0);
     }else{
-      motor.set(ControlMode.PercentOutput,speed);
+      currentColour = 4;
+    }
+
+    SmartDashboard.putString("Colour Detected:", colours[currentColour]);
+    if(currentColour == 3){
+      motor.set(0);
+    }else{
+      motor.set(speed);
     }
   }
+  public boolean inRange(double redV,  double redMin, double redMax,double greenV,  double greenMin, double greenMax,double blueV,  double blueMin, double blueMax) {
+    return redV >= redMin && redV <= redMax && greenV >= greenMin && greenV <= greenMax && blueV >= blueMin && blueV <= blueMax;
+  }
 }
-
