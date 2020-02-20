@@ -100,6 +100,14 @@ public class DriveTrain extends SubsystemBase {
       System.out.println("Running Gyro");
     }
   }
+  public void teleop(double speed, double turnSpeed){
+    if(turnSpeed != 0.0){
+      drive(speed, turnSpeed); //if on bump
+    }else if(turnSpeed == 0.0){
+      driveStraightGyro(speed); //if not on bump
+      System.out.println("Running Gyro");
+    }
+  }
 
   public boolean turnToAngle(int angle, double speed){
     if(angle > gyro.getAngle()){
