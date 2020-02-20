@@ -15,13 +15,12 @@ public class BumpDetector extends CommandBase {
   /**
    * Creates a new BumpDetector.
    */
-  static int gyroPort = 0;
-  static ADXRS450_Gyro gyro  = new ADXRS450_Gyro(gyroPort);;
-  public BumpDetector() {
-   
-    int bumpThreshold= 0; // how fast is a "bump"?
+  static double bumpThreshold = 2; // how fast is a "bump"?
 
-    gyro
+  static int gyroPort = 0;
+  static ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+  public BumpDetector() {
+
 
   // Called when the command is initially scheduled.
   @Override
@@ -31,6 +30,11 @@ public class BumpDetector extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double rate = gyro.getRate();
+    if(gyro.getRate() > bumpThreshold) {
+      // correct the bump
+      
+    }
   }
 
   // Called once the command ends or is interrupted.
