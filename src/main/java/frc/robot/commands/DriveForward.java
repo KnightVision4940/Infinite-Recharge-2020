@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -19,13 +20,22 @@ public class DriveForward extends CommandBase {
   int StopPos;
   private double ultrasonic;
 
+  private boolean driveToColour;
+  private double[] redTape = {0.47,0.36,0.13};
+  private double[] blueTape = {0.15,0.42,0.42};
+
+  private double redRange=0.1;
+  private double blueRange=0.1;
+  private double greenRange=0.1;
   /**
    * Creates a new DriveForward.
    */
-  public DriveForward(double speed, int stop, double ultrasonic) {
+  public DriveForward(double speed, int stop, double ultrasonic, boolean driveToColour) {
     this.speed = speed;
     this.StopPos = stop;
     this.ultrasonic = ultrasonic;
+    this.driveToColour = driveToColour;
+
 
     addRequirements(Robot.drive);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -43,12 +53,15 @@ public class DriveForward extends CommandBase {
   public void execute() {
 
     SmartDashboard.putNumber("Ultrasonic", Robot.drive.getUltrasonic());
-    if(ultrasonic == 0){
-      ultrasonicDrive();
+    if(driveToColour == true){
+      toColourTape();
     }else{
-      encoderDrive();
+      if(ultrasonic == 0){
+        ultrasonicDrive();
+      }else{
+        encoderDrive();
+      }
     }
-   
   }
 
   // Called once the command ends or is interrupted.
@@ -61,6 +74,19 @@ public class DriveForward extends CommandBase {
       Robot.drive.drive(speed, 0);
     }
   }
+
+  public void toColourTape(){
+    double[] rgb = Robot.c_wheel.returnColour();
+    if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue){
+      Robot.drive.autoDrive(speed, 0);
+      if(inRange(rgb[0], blueTape[0] - redRange, blueTape[0] + redRange, rgb[1], blueTape[1] - greenRange, blueTape[1] + greenRange, rgb[2], blueTape[2] - blueRange, blueTape[2] + blueRange)){
+        
+      }
+    }else{
+
+    }
+  }
+
   public void encoderDrive(){
     curEncoder =Robot.drive.getEncoderLB();
     if(curEncoder - startEncoder < StopPos){
@@ -74,7 +100,10 @@ public class DriveForward extends CommandBase {
   @Override
   public void end(boolean interrupted) {
   }
-
+  
+  public boolean inRange(double redV,  double redMin, double redMax,double greenV,  double greenMin, double greenMax,double blueV,  double blueMin, double blueMax) {
+    return redV >= redMin && redV <= redMax && greenV >= greenMin && greenV <= greenMax && blueV >= blueMin && blueV <= blueMax;
+  }
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

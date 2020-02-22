@@ -66,6 +66,11 @@ public class colourWheel extends SubsystemBase {
     SmartDashboard.putNumber("Green", detectedColour.green);
     SmartDashboard.putNumber("Blue", detectedColour.blue);
   }
+  public double[] returnColour(){
+    Color detectedColour = m_colorSensor.getColor();
+    return new double[] {detectedColour.red, detectedColour.green, detectedColour.blue};
+  }
+
   public void findColour(int colour){
     Color detectedColour = m_colorSensor.getColor();
     int currentColour = 0;
