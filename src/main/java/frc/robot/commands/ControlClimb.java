@@ -7,15 +7,23 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants;
 import frc.robot.Robot;
+
 
 public class ControlClimb extends CommandBase {
   /**
    * Creates a new ControlClimb.
    */
-
-   int speed;
+  
+  Joystick xbox = new Joystick(Constants.xbox_drive);
+  JoystickButton rBumper = new JoystickButton(xbox, Constants.RB);
+  JoystickButton lBumper = new JoystickButton(xbox, Constants.LB);
+  int speed;
   
   public ControlClimb(int speed) {
     this.speed=speed;
@@ -30,10 +38,10 @@ public class ControlClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.Climber.move(speed,speed);
-    
+    double rightVal = rBumper.get() ? 0 : xbox.getRawAxis(5);
+    double leftVal = rBumper.get() ? xbox.getRawAxis(5) : 0;
+    Robot.Climber.move(rightVal, leftVal);
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

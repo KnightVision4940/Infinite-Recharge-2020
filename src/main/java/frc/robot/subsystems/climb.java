@@ -33,6 +33,5 @@ public class Climb extends SubsystemBase {
   public void move(double speed1, double speed2) {
     Motor1.set(ControlMode.PercentOutput, speed1);
     Motor2.set(ControlMode.PercentOutput, speed2);
-    
   }
 }
