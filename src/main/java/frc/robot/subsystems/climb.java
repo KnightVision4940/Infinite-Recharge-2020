@@ -14,14 +14,14 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class climb extends SubsystemBase {
+public class Climb extends SubsystemBase {
   // static TalonSRX mainMotor;
   static TalonSRX Motor1;
   static TalonSRX Motor2;
   /**
    * Creates a new Climb.
    */
-  public climb() {
+  public Climb() {
     Motor1 = new TalonSRX(Constants.Motor1Climb);
     Motor2 = new TalonSRX(Constants.Motor2Climb);
   }
