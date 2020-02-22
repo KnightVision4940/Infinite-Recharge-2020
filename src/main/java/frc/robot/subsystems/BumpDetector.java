@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -21,7 +21,7 @@ public class BumpDetector extends CommandBase {
   static ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   public BumpDetector() {
 
-
+  }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
