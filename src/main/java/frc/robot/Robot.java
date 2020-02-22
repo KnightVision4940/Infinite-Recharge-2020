@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.OutTakeSubsystem;
-import frc.robot.subsystems.climb;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.colourWheel;
 import frc.robot.subsystems.Deployer;
 import frc.robot.commands.AutoLeft;
@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
   public static final XboxController x = new XboxController(Constants.xbox_drive);
   public static OutTakeSubsystem sub_outtake = new OutTakeSubsystem();
   public static Deployer pusher = new Deployer();
-  public static climb Climber = new climb();
+  public static Climb Climber = new Climb();
   public static colourWheel c_wheel = new colourWheel();
 
   /**
