@@ -13,14 +13,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Climb extends SubsystemBase {
+public class climb extends SubsystemBase {
   // static TalonSRX mainMotor;
   static TalonFX Motor1;
   static TalonFX Motor2;
   /**
    * Creates a new Climb.
    */
-  public Climb() {
+  public climb() {
     Motor1 = new TalonFX(Constants.Motor1Climb);
     Motor2 = new TalonFX(Constants.Motor2Climb);
   }
