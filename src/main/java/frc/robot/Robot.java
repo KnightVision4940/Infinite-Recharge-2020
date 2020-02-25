@@ -146,4 +146,20 @@ public class Robot extends TimedRobot {
     }
     return rawPos;
   }
-}
+
+  public static boolean leftBumper(){
+    return x.getRawButton(5);
+  }
+  
+  public static boolean rightBumper(){
+    return x.getRawButton(6);
+  }
+
+  public static double getYRight() {
+    double deadzone = 0.05;
+    double rawPos = x.getRawAxis(5);
+    if(rawPos > -deadzone && rawPos < deadzone) {
+      return 5;
+    }
+  
+  }

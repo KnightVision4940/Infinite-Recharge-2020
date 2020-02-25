@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 import frc.robot.Robot;
+//s
 
 
 public class ControlClimb extends CommandBase {
@@ -38,9 +39,43 @@ public class ControlClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rightVal = rBumper.get() ? 0 : xbox.getRawAxis(5);
-    double leftVal = rBumper.get() ? xbox.getRawAxis(5) : 0;
-    Robot.Climber.move(rightVal, leftVal);
+    if(Robot.leftBumper() == true){
+      if(Robot.getYRight() > 0){
+        //left side up
+        
+      }
+      else if(Robot.getYRight() < 0){
+        //left side down
+      }
+      else{
+        //do nothing
+      }
+    }
+    else if(Robot.rightBumper() == true){
+      if(Robot.getYRight() > 0){
+        //right side up
+      }
+      else if(Robot.getYRight() < 0){
+        //left side down
+      }
+      else{
+        //do nothing
+      }
+    }
+    else if(Robot.leftBumper() == true && Robot.rightBumper() == true){
+      if(Robot.getYRight() > 0){
+        //both up
+      }
+      else if(Robot.getYRight() < 0){
+        //both down
+      }
+      else{
+        //do nothing
+      }
+    }
+    else{
+      //do nothing
+    }
   }
   // Called once the command ends or is interrupted.
   @Override

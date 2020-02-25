@@ -38,7 +38,7 @@ public class RobotContainer {
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
+   * instantiating a {@link GenericHID} or one of its subclasses ({@
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
@@ -46,6 +46,7 @@ public class RobotContainer {
     Joystick xbox = new Joystick(Constants.xbox_drive);
     JoystickButton aButton = new JoystickButton(xbox, 1);
     JoystickButton xButton = new JoystickButton(xbox, 3);
+    
     // JoystickButton bButton = new JoystickButton(xbox, 1);
     // JoystickButton yButton = new JoystickButton(xbox, 3);
     aButton.whileHeld(new OutTake());
