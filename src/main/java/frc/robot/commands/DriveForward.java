@@ -110,3 +110,6 @@ public class DriveForward extends CommandBase {
     return false;
   }
 }
+
+//red - 227 27 35 (0.89, 0.11, 0.14)
+//Electric Blue - 15 78 171 (0.06, 0.31, 0.67)
