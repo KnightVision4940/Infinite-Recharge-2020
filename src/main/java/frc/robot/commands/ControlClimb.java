@@ -41,11 +41,11 @@ public class ControlClimb extends CommandBase {
   public void execute() {
     if(Robot.leftBumper() == true){
       if(Robot.getYRight() > 0){
-        //left side up
-        
+      Robot.Climber.move(1, 0);  //left side up
       }
       else if(Robot.getYRight() < 0){
-        //left side down
+        Robot.Climber.move(-1, 0);  //left side down
+
       }
       else{
         //do nothing
@@ -53,10 +53,10 @@ public class ControlClimb extends CommandBase {
     }
     else if(Robot.rightBumper() == true){
       if(Robot.getYRight() > 0){
-        //right side up
+        Robot.Climber.move(0, 1);  //right side up
       }
       else if(Robot.getYRight() < 0){
-        //left side down
+        Robot.Climber.move(0, 1); //right side down
       }
       else{
         //do nothing
@@ -64,10 +64,10 @@ public class ControlClimb extends CommandBase {
     }
     else if(Robot.leftBumper() == true && Robot.rightBumper() == true){
       if(Robot.getYRight() > 0){
-        //both up
+        Robot.Climber.move(1, 1);  //both up
       }
       else if(Robot.getYRight() < 0){
-        //both down
+        Robot.Climber.move(-1, -1); //both down
       }
       else{
         //do nothing
