@@ -19,8 +19,8 @@ public class Intake extends SubsystemBase {
    * Creates a new Intake.
    */
   private TalonSRX motor = new TalonSRX(Constants.Intake); // <-- port
-  private double speed = 1;
-  
+  private double speed = -1;
+
   public void move() {
     motor.set(ControlMode.PercentOutput, speed);
   }

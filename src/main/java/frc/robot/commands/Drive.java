@@ -29,7 +29,7 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.drive.drive(Robot.getTriggers(), Robot.getXLeft());
+    Robot.drive.drive(-Robot.getTriggers(), Robot.getXLeft());
     // Robot.c_wheel.putColour();
     SmartDashboard.putNumber("Ultrasonic", Robot.drive.getUltrasonic());
   }

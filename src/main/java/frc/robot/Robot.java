@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
 
   public static DriveTrain drive = new DriveTrain(Constants.LeftF_drive, Constants.LeftB_drive, Constants.RightF_drive, Constants.RightB_drive);
   public static final XboxController x = new XboxController(Constants.xbox_drive);
+  public static final XboxController x2 = new XboxController(Constants.xbox_shoot);
   public static OutTakeSubsystem sub_outtake = new OutTakeSubsystem();
   public static Deployer pusher = new Deployer();
   public static climb Climber = new climb();

@@ -18,6 +18,7 @@ package frc.robot;
 public final class Constants {
     // Xbox Controller Ports
     public static int xbox_drive = 0;
+    public static int xbox_shoot = 1;
 
     //Motor Ports (PDP)
     public static int LeftF_drive = 13;

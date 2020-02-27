@@ -46,7 +46,7 @@ public class OutTake extends CommandBase {
   }
 
   public void spinMotor() {
-    Robot.sub_outtake.move(-1.0,-0.5);
+    Robot.sub_outtake.move(-0.9,-1.0);
     //you are good at coding!!!!!!!!
   }
 }
