@@ -16,7 +16,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OutTakeSubsystem;
 import frc.robot.subsystems.climb;
-// import frc.robot.subsystems.colourWheel;
+import frc.robot.subsystems.ColourWheel;
 import frc.robot.subsystems.Deployer;
 import frc.robot.commands.Drive;
 import frc.robot.Constants;
@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   public static Deployer pusher = new Deployer();
   public static climb Climber = new climb();
   public static Intake in_sub = new Intake();
-  // public static colourWheel c_wheel = new colourWheel();
+  public static ColourWheel c_wheel = new ColourWheel();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -161,7 +161,11 @@ public class Robot extends TimedRobot {
     double deadzone = 0.05;
     double rawPos = x.getRawAxis(5);
     if(rawPos > -deadzone && rawPos < deadzone) {
-      return 5;
+      return 0;
+    }
+    else {
+      return rawPos;
     }
   
   }
+}

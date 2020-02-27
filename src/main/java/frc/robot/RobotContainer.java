@@ -51,11 +51,8 @@ public class RobotContainer {
     // JoystickButton bButton = new JoystickButton(xbox, 1);
     // JoystickButton yButton = new JoystickButton(xbox, 3);
     aButton.whileHeld(new OutTake());
-<<<<<<< HEAD
     xButton.whileHeld(new BallSuck());
     // aButton.toggleWhenPressed(new OutTake());
-=======
->>>>>>> master
   }
   // xButton.toggleWhenPressed(new OutTake());
 
