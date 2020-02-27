@@ -16,6 +16,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -30,6 +31,7 @@ public class OutTakeSubsystem extends SubsystemBase {
   static CANPIDController pid;
   // static CANSparkMax LeftMotor;
   static int speed = -1;
+  static double startTime;
 
   static CANEncoder outtakeEncoder;
 
@@ -39,6 +41,7 @@ public class OutTakeSubsystem extends SubsystemBase {
     MiddleMotor = new CANSparkMax(Constants.OutTakeMiddle,MotorType.kBrushless);
     RightMotor = new TalonSRX(Constants.OutTakeRight);
     pid = new CANPIDController(MiddleMotor);
+    startTime = Timer.getFPGATimestamp();
 
   }
 
@@ -47,10 +50,12 @@ public class OutTakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void move(double speed) {
-     RightMotor.set(ControlMode.PercentOutput, -1);
-    // MiddleMotor.set(speed);
-    LeftMotor.set(ControlMode.PercentOutput, 1);
+  public void move(double speed, double speed2) {
+    // if(startTime - Timer.getFPGATimestamp() > 1){
+    RightMotor.set(ControlMode.PercentOutput, speed2);
+    LeftMotor.set(ControlMode.PercentOutput, speed2);
+    // }
+     MiddleMotor.set(speed);
   }
 
   public void movePID(double maxRPM, double p, double i, double d, double ff){

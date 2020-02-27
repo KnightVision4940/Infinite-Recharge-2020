@@ -13,9 +13,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OutTakeSubsystem;
 import frc.robot.subsystems.climb;
-import frc.robot.subsystems.colourWheel;
+// import frc.robot.subsystems.colourWheel;
 import frc.robot.subsystems.Deployer;
 import frc.robot.commands.AutoLeft;
 import frc.robot.commands.Drive;
@@ -37,7 +38,8 @@ public class Robot extends TimedRobot {
   public static OutTakeSubsystem sub_outtake = new OutTakeSubsystem();
   public static Deployer pusher = new Deployer();
   public static climb Climber = new climb();
-  public static colourWheel c_wheel = new colourWheel();
+  public static Intake in_sub = new Intake();
+  // public static colourWheel c_wheel = new colourWheel();
 
   /**
    * This function is run when the robot is first started up and should be used for any

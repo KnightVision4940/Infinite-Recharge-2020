@@ -9,14 +9,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.OutTakeSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class OutTake extends CommandBase {
+public class BallSuck extends CommandBase {
   /**
-   * Creates a new OutTake.
+   * Creates a new Intake.
    */
-  public OutTake() {
+  public BallSuck() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -28,25 +26,18 @@ public class OutTake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    spinMotor();
-    // SmartDashboard.putNumber("Velocity", Robot.sub_outtake.getVelocity());
+    Robot.in_sub.move();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.sub_outtake.move(0,0);
-    //change P I D values
-    // Robot.sub_outtake.movePID(5676, 0, 0, 0, 0.000015);
+    Robot.in_sub.stop();
   }
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
-  }
-
-  public void spinMotor() {
-    Robot.sub_outtake.move(-1.0,-0.5);
-    //you are good at coding!!!!!!!!
   }
 }

@@ -73,7 +73,7 @@ public class DriveTrain extends SubsystemBase {
     SpeedControllerGroup Left = new SpeedControllerGroup(leftFront,leftBack);
     SpeedControllerGroup Right = new SpeedControllerGroup(rightFront, rightBack);
     
-    
+    drive = new DifferentialDrive(Left, Right);
   }
   //Without Gyro Functionality
   public void drive(double speed, double turn){

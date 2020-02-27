@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.AutoLeft;
+import frc.robot.commands.BallSuck;
 import frc.robot.commands.OutTake;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -49,7 +50,8 @@ public class RobotContainer {
     // JoystickButton bButton = new JoystickButton(xbox, 1);
     // JoystickButton yButton = new JoystickButton(xbox, 3);
     aButton.whileHeld(new OutTake());
-    // xButton.toggleWhenPressed(new OutTake());
+    xButton.whileHeld(new BallSuck());
+    // aButton.toggleWhenPressed(new OutTake());
   }
 
 

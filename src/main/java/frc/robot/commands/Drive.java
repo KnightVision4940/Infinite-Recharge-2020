@@ -30,7 +30,7 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
     Robot.drive.drive(Robot.getTriggers(), Robot.getXLeft());
-    Robot.c_wheel.putColour();
+    // Robot.c_wheel.putColour();
     SmartDashboard.putNumber("Ultrasonic", Robot.drive.getUltrasonic());
   }
 

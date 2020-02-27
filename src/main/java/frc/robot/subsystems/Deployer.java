@@ -12,16 +12,16 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class Deployer extends SubsystemBase {
-  public static Solenoid s1;
+  // public static Solenoid s1;
   /**
    * Creates a new Deployer.
    */
   public Deployer() {
-    s1 = new Solenoid(Constants.Solenoid);
+    // s1 = new Solenoid(Constants.Solenoid);
   }
 
   public void push(){
-    s1.set(true);
+    // s1.set(true);
   }
   @Override
   public void periodic() {
