@@ -56,6 +56,7 @@
 //     // This method will be called once per scheduler run
 //   }
 
+<<<<<<< HEAD
 //   //0 --> Blue --> 0 255 255
 //   //1 --> Yellow --> 255 255 0
 //   //2 --> Red --> 255 0 0
@@ -75,6 +76,32 @@
 //     SmartDashboard.putNumber("Red", detectedColour.red);
 //     SmartDashboard.putNumber("Green", detectedColour.green);
 //     SmartDashboard.putNumber("Blue", detectedColour.blue);
+=======
+  //0 --> Blue --> 0 255 255
+  //1 --> Yellow --> 255 255 0
+  //2 --> Red --> 255 0 0
+  //3 --> Green --> 0 255 0
+  public void putColour(){
+    Color detectedColour = m_colorSensor.getColor();
+    SmartDashboard.putNumber("Red", detectedColour.red);
+    SmartDashboard.putNumber("Green", detectedColour.green);
+    SmartDashboard.putNumber("Blue", detectedColour.blue);
+  }
+  public double[] returnColour(){
+    Color detectedColour = m_colorSensor.getColor();
+    return new double[] {detectedColour.red, detectedColour.green, detectedColour.blue};
+  }
+
+  public void findColour(int colour){
+    Color detectedColour = m_colorSensor.getColor();
+    int currentColour = 0;
+    redV = detectedColour.red;
+    blueV = detectedColour.blue;
+    greenV = detectedColour.green;
+    SmartDashboard.putNumber("Red", detectedColour.red);
+    SmartDashboard.putNumber("Green", detectedColour.green);
+    SmartDashboard.putNumber("Blue", detectedColour.blue);
+>>>>>>> master
     
 //     if(inRange(redV, red[0] - redRange, red[0] + redRange, greenV, red[1] - greenRange, red[1] + greenRange, blueV, red[2] - blueRange, red[2] + blueRange)){
 //       //red

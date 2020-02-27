@@ -75,13 +75,8 @@ public class DriveTrain extends SubsystemBase {
     
     drive = new DifferentialDrive(Left, Right);
   }
-  //Without Gyro Functionality
   public void drive(double speed, double turn){
-    // Encoder motorEncoder = new Encoder(0, 1);
-    // motorEncoder.setDistancePerPulse(1./256.);
-    // if(motorEncoder.get() < 1000) {  } // < --- help
     drive.arcadeDrive(speed, turn,true);
-    // leftBack.set(1);
   }
   public void resetGyro(){
     gyro.reset();
@@ -128,10 +123,10 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void encodersOnDashboard(){
-    SmartDashboard.putNumber("Encoder Left Back", encoderLB.getPosition());
-    SmartDashboard.putNumber("Encoder Right Back", encoderLF.getPosition());
-    SmartDashboard.putNumber("Encoder Left Front", encoderRB.getPosition());
-    SmartDashboard.putNumber("Encoder Right Front", encoderRF.getPosition());
+    SmartDashboard.putNumber("Encoder Left Back", getEncoderLB());
+    SmartDashboard.putNumber("Encoder Right Back", getEncoderRB());
+    SmartDashboard.putNumber("Encoder Left Front", getEncoderLF());
+    SmartDashboard.putNumber("Encoder Right Front", getEncoderRF());
   }
 
   public double getEncoderLB(){

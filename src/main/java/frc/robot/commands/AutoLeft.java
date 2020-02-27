@@ -19,7 +19,7 @@ public class AutoLeft extends SequentialCommandGroup {
 
   //  DriveForward(Turn,Speed,Stop Position)
   public AutoLeft() {
-    super(new DriveForward(0.3,50,40));
+    super(new DriveForward(0.3,50,40,false));
     // addCommands(new DriveForward(true,false,0,0.5));
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());

@@ -18,7 +18,6 @@ import frc.robot.subsystems.OutTakeSubsystem;
 import frc.robot.subsystems.climb;
 // import frc.robot.subsystems.colourWheel;
 import frc.robot.subsystems.Deployer;
-import frc.robot.commands.AutoLeft;
 import frc.robot.commands.Drive;
 import frc.robot.Constants;
 
@@ -149,4 +148,20 @@ public class Robot extends TimedRobot {
     }
     return rawPos;
   }
-}
+
+  public static boolean leftBumper(){
+    return x.getRawButton(5);
+  }
+  
+  public static boolean rightBumper(){
+    return x.getRawButton(6);
+  }
+
+  public static double getYRight() {
+    double deadzone = 0.05;
+    double rawPos = x.getRawAxis(5);
+    if(rawPos > -deadzone && rawPos < deadzone) {
+      return 5;
+    }
+  
+  }

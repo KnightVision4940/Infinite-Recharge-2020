@@ -8,22 +8,22 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 public class climb extends SubsystemBase {
   // static TalonSRX mainMotor;
-  static TalonSRX Motor1;
-  static TalonSRX Motor2;
+  static TalonFX leftMotor;
+  static TalonFX rightMotor;
   /**
    * Creates a new Climb.
    */
   public climb() {
-    Motor1 = new TalonSRX(Constants.Motor1Climb);
-    Motor2 = new TalonSRX(Constants.Motor2Climb);
+    leftMotor = new TalonFX(Constants.Motor1Climb);
+    rightMotor = new TalonFX(Constants.Motor2Climb);
   }
 
   @Override
@@ -32,7 +32,11 @@ public class climb extends SubsystemBase {
   }
 
   public void move(double speed1, double speed2) {
-    Motor1.set(ControlMode.PercentOutput, speed1);
-    Motor2.set(ControlMode.PercentOutput, speed2);
+    leftMotor.set(ControlMode.PercentOutput, speed1);
+    rightMotor.set(ControlMode.PercentOutput, speed2);
+  }
+
+  public void Climbing(){
+   
   }
 }
