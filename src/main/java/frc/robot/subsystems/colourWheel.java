@@ -24,7 +24,7 @@ public class ColourWheel extends SubsystemBase {
    */
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
-  public static Victor motor = new Victor(0);
+  public static TalonSRX motor = new TalonSRX(Constants.colourWheel);
   private double speed = 0.4;
   private double redV = 0;
   private double greenV = 0;
@@ -37,6 +37,8 @@ public class ColourWheel extends SubsystemBase {
   private double green[] = {0.16,0.56,0.25};
   private double yellow[] = {0.32,0.53,0.13};
   private String colours[] = {"Red", "Yellow", "Blue", "Green","Other"};
+  private int referenceColour = 0;
+  private int counter = 0;
 
   public ColourWheel() {
    
@@ -78,33 +80,57 @@ public class ColourWheel extends SubsystemBase {
     redV = detectedColour.red;
     blueV = detectedColour.blue;
     greenV = detectedColour.green;
-    SmartDashboard.putNumber("Red", detectedColour.red);
-    SmartDashboard.putNumber("Green", detectedColour.green);
-    SmartDashboard.putNumber("Blue", detectedColour.blue);
+    currentColour = colourDetected();
+
+    SmartDashboard.putString("Colour Detected:", colours[currentColour]);
+    if(currentColour == colour){
+      motor.set(ControlMode.PercentOutput,0);
+    }else{
+      motor.set(ControlMode.PercentOutput, speed);
+    }
+  }
+
+  public void countRotations(int numOfRotations){
+    int currentColour = colourDetected();
     
+    if(referenceColour  == 5){
+      referenceColour = currentColour;
+    }
+    if(currentColour == referenceColour && counter % 2 == 0){
+      if(currentColour != referenceColour && counter % 2 == 0){
+        counter++;
+      }
+    }else if(currentColour == referenceColour && counter % 2 != 0){
+      counter++;
+    }
+    if((counter/2) == numOfRotations){
+      motor.set(ControlMode.PercentOutput, 0);
+    }else{
+      motor.set(ControlMode.PercentOutput,speed);
+    }
+  } 
+
+  public int colourDetected(){
+    Color detectedColour = m_colorSensor.getColor();
+    redV = detectedColour.red;
+    blueV = detectedColour.blue;
+    greenV = detectedColour.green;
     if(inRange(redV, red[0] - redRange, red[0] + redRange, greenV, red[1] - greenRange, red[1] + greenRange, blueV, red[2] - blueRange, red[2] + blueRange)){
       //red
-      currentColour = 0;
+      return 0;
     }else if(inRange(redV, yellow[0] - redRange, yellow[0] + redRange, greenV, yellow[1] - greenRange, yellow[1] + greenRange, blueV, yellow[2] - blueRange, yellow[2] + blueRange)){
       //yellow
-      currentColour = 1;
+      return 1;
     }
     else if(inRange(redV, blue[0] - redRange, blue[0] + redRange, greenV, blue[1] - greenRange, blue[1] + greenRange, blueV, blue[2] - blueRange, blue[2] + blueRange)){
       //blue
-      currentColour = 2;
+      return 2;
     }
     else if(inRange(redV, green[0] - redRange, green[0] + redRange, greenV, green[1] - greenRange, green[1] + greenRange, blueV, green[2] - blueRange, green[2] + blueRange)){
       //green
-      currentColour = 3;
+      return 3;
     }else{
-      currentColour = 4;
-    }
-
-    SmartDashboard.putString("Colour Detected:", colours[currentColour]);
-    if(currentColour == 3){
-      motor.set(0);
-    }else{
-      motor.set(speed);
+      return 4;
     }
   }
   public boolean inRange(double redV,  double redMin, double redMax,double greenV,  double greenMin, double greenMax,double blueV,  double blueMin, double blueMax) {
