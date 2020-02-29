@@ -32,6 +32,7 @@ public class OutTakeSubsystem extends SubsystemBase {
   // static CANSparkMax LeftMotor;
   static int speed = -1;
   static double startTime;
+  static boolean runningFull = false;
 
   static CANEncoder outtakeEncoder;
 
@@ -42,6 +43,7 @@ public class OutTakeSubsystem extends SubsystemBase {
     RightMotor = new TalonSRX(Constants.OutTakeRight);
     pid = new CANPIDController(MiddleMotor);
     startTime = Timer.getFPGATimestamp();
+    outtakeEncoder = new CANEncoder(MiddleMotor);
 
   }
 
@@ -51,11 +53,23 @@ public class OutTakeSubsystem extends SubsystemBase {
   }
 
   public void move(double speed, double speed2) {
-    // if(startTime - Timer.getFPGATimestamp() > 1){
-    RightMotor.set(ControlMode.PercentOutput, speed2);
-    LeftMotor.set(ControlMode.PercentOutput, speed2);
-    // }
+    if(getVelocity() < -4550 && runningFull == true){
+      RightMotor.set(ControlMode.PercentOutput, speed2);
+      LeftMotor.set(ControlMode.PercentOutput, speed2);
+    }else if(getVelocity() < -4500 && runningFull == false){
+      runningFull = true;
+    }
      MiddleMotor.set(speed);
+  }
+
+  public void stop(){
+    RightMotor.set(ControlMode.PercentOutput, 0);
+    LeftMotor.set(ControlMode.PercentOutput, 0);
+    MiddleMotor.set(0);
+  }
+
+  public void changeRunningFullToFalse(){
+    runningFull = false;
   }
 
   public void movePID(double maxRPM, double p, double i, double d, double ff){
@@ -71,5 +85,6 @@ public class OutTakeSubsystem extends SubsystemBase {
 
   public double getVelocity(){
     return outtakeEncoder.getVelocity();
+
   }
 }

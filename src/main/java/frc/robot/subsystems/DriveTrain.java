@@ -95,15 +95,24 @@ public class DriveTrain extends SubsystemBase {
       System.out.println("Running Gyro");
     }
   }
-  public void teleop(double speed, double turnSpeed) {
-    double bumpThreshold = 1.9; // degrees turned in one 80hz interval?
-    if(turnSpeed != 0.0 && gyro.getRate() > bumpThreshold){
+  public void telopDrive(double speed, double turnSpeed){
+    double deadband = 0.1;
+    if(turnSpeed >= deadband || turnSpeed <= deadband){
       drive(speed, turnSpeed);
     }else if(turnSpeed == 0.0){
       driveStraightGyro(speed);
       System.out.println("Running Gyro");
     }
   }
+  // public void teleop(double speed, double turnSpeed) {
+  //   double bumpThreshold = 1.9; // degrees turned in one 80hz interval?
+  //   if(turnSpeed != 0.0 && gyro.getRate() > bumpThreshold){
+  //     drive(speed, turnSpeed);
+  //   }else if(turnSpeed == 0.0){
+  //     driveStraightGyro(speed);
+  //     System.out.println("Running Gyro");
+  //   }
+  // }
 
   public boolean turnToAngle(int angle, double speed){
     if(angle > gyro.getAngle()){

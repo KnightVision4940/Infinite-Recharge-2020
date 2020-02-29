@@ -47,12 +47,12 @@ public class RobotContainer {
     Joystick xbox = new Joystick(Constants.xbox_drive);
     Joystick xbox2 = new Joystick(Constants.xbox_shoot);
     JoystickButton aButton = new JoystickButton(xbox2, 1);
-    JoystickButton xButton = new JoystickButton(xbox, 3);
+    JoystickButton aButton_drive = new JoystickButton(xbox, 1);
     
     // JoystickButton bButton = new JoystickButton(xbox, 1);
     // JoystickButton yButton = new JoystickButton(xbox, 3);
     aButton.whileHeld(new OutTake());
-    xButton.whileHeld(new BallSuck());
+    aButton_drive.toggleWhenPressed(new BallSuck());
     // aButton.toggleWhenPressed(new OutTake());
   }
   // xButton.toggleWhenPressed(new OutTake());

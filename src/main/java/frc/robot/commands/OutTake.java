@@ -29,13 +29,15 @@ public class OutTake extends CommandBase {
   @Override
   public void execute() {
     spinMotor();
+    SmartDashboard.putNumber("Speed of Mid:", -Robot.sub_outtake.getVelocity());
     // SmartDashboard.putNumber("Velocity", Robot.sub_outtake.getVelocity());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Robot.sub_outtake.move(0,0);
+    Robot.sub_outtake.stop();
+    Robot.sub_outtake.changeRunningFullToFalse();
     //change P I D values
     // Robot.sub_outtake.movePID(5676, 0, 0, 0, 0.000015);
   }
