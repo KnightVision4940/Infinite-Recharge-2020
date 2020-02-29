@@ -31,9 +31,9 @@ public class climb extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void move(double speed1, double speed2) {
-    leftMotor.set(ControlMode.PercentOutput, speed1);
-    rightMotor.set(ControlMode.PercentOutput, speed2);
+  public void move(double speed) {
+    leftMotor.set(ControlMode.PercentOutput, speed);
+    rightMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public void Climbing(){
