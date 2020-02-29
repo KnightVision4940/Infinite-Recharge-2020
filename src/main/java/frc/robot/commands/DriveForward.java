@@ -17,7 +17,7 @@ public class DriveForward extends CommandBase {
   double startEncoder;
   double curEncoder;
 
-  int StopPos;
+  int encoderStop;
   private double ultrasonic;
 
   //red - 227 27 35 (0.89, 0.11, 0.14)
@@ -34,9 +34,9 @@ public class DriveForward extends CommandBase {
   /**
    * Creates a new DriveForward.
    */
-  public DriveForward(double speed, int stop, double ultrasonic, boolean driveToColour) {
+  public DriveForward(double speed, int encoderStop, double ultrasonic, boolean driveToColour) {
     this.speed = speed;
-    this.StopPos = stop;
+    this.encoderStop = encoderStop;
     this.ultrasonic = ultrasonic;
     this.driveToColour = driveToColour;
 
@@ -108,7 +108,7 @@ public class DriveForward extends CommandBase {
 
   public void encoderDrive(){
     curEncoder =Robot.drive.getEncoderLB();
-    if(curEncoder - startEncoder < StopPos){
+    if(curEncoder - startEncoder < encoderStop){
       Robot.drive.autoDrive(speed, 0);
     }else{
       Robot.drive.stop();
@@ -119,7 +119,8 @@ public class DriveForward extends CommandBase {
 
   //Figure out some drive thing.
   public void turnThing(){
-    Robot.drive.autoDrive(1, 1);
+    Robot.drive.autoDrive(0, 0);
+    System.out.println("It works!!");
   }
 
   @Override
