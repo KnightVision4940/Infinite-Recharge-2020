@@ -39,43 +39,7 @@ public class ControlClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Robot.leftBumper() == true){
-      if(Robot.getYRight() > 0){
-      Robot.Climber.move(1, 0);  //left side up
-      }
-      else if(Robot.getYRight() < 0){
-        Robot.Climber.move(-1, 0);  //left side down
-
-      }
-      else{
-        //do nothing
-      }
-    }
-    else if(Robot.rightBumper() == true){
-      if(Robot.getYRight() > 0){
-        Robot.Climber.move(0, 1);  //right side up
-      }
-      else if(Robot.getYRight() < 0){
-        Robot.Climber.move(0, 1); //right side down
-      }
-      else{
-        //do nothing
-      }
-    }
-    else if(Robot.leftBumper() == true && Robot.rightBumper() == true){
-      if(Robot.getYRight() > 0){
-        Robot.Climber.move(1, 1);  //both up
-      }
-      else if(Robot.getYRight() < 0){
-        Robot.Climber.move(-1, -1); //both down
-      }
-      else{
-        //do nothing
-      }
-    }
-    else{
-      //do nothing
-    }
+    Robot.Climber.move(Robot.getY2Left(), Robot.getY2Right());
   }
   // Called once the command ends or is interrupted.
   @Override
