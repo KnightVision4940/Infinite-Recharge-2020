@@ -90,6 +90,11 @@ public class Robot extends TimedRobot {
     autoChooser.addDefault("Middle - Auto 3", new );
     autoChooser.addObject("Auto mode chooser", autoChooser);
 >>>>>>> Stashed changes
+=======
+    autoChooser.addDefault("In front of Powerport - Auto 2", A_InFrontofPowerport());
+    autoChooser.addDefault("Middle - Auto 3", new );
+    autoChooser.addObject("Auto mode chooser", autoChooser);
+>>>>>>> Stashed changes
   }
 
   /**
