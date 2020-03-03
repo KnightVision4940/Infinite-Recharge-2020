@@ -22,6 +22,9 @@ import frc.robot.subsystems.ColourWheel;
 import frc.robot.subsystems.Deployer;
 import frc.robot.commands.Drive;
 import frc.robot.commands.TestControl;
+import frc.robot.commands.autonomous.A_FrontOfPowerPorrt;
+import frc.robot.commands.autonomous.A_FurthestFromWall;
+import frc.robot.commands.autonomous.A_Middle;
 import frc.robot.Constants;
 
 /**
@@ -55,9 +58,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     autoChooser = new SendableChooser();
-    autoChooser.addDefault("Furthest From Wall - Auto 1", m_robotContainer.getAutonomousCommand());
-    autoChooser.addDefault("In front of Powerport - Auto 2", A_InFrontofPowerport());
-    autoChooser.addDefault("Middle - Auto 3", new );
+    autoChooser.addDefault("Furthest From Wall - Auto 1", new A_FurthestFromWall());
+    autoChooser.addDefault("In front of Powerport - Auto 2", new A_FrontOfPowerPorrt());
+    autoChooser.addDefault("Middle - Auto 3", new A_Middle());
     autoChooser.addObject("Auto mode chooser", autoChooser);
   }
 

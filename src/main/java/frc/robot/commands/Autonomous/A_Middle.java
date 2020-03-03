@@ -12,12 +12,12 @@ import frc.robot.commands.autonomous.DriveForward;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class A_FurthestFromWall extends SequentialCommandGroup {
+public class A_Middle extends SequentialCommandGroup {
   /**
    * Creates a new AutoOne.
    */
-  //  DriveForward(Turn,Speed,Stop Position)
-  public A_FurthestFromWall() {
+  // DriveForward(Turn,Speed,Stop Position)
+  public A_Middle() {
     //(Speed,Encoder,ultrasonic)  
     super(new DriveForward(0.3,0,40),new DriveTurn(90),new DriveForward(0.3, 50, 0),new Auto_Outake(1000), new DriveForward(-0.3, -20, 0));
     // addCommands(new DriveForward(true,false,0,0.5));

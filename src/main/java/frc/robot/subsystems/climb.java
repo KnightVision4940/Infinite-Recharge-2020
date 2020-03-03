@@ -43,8 +43,10 @@ public class climb extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void move(double spe) {
-    P,I,D,= spe;
+  public void move(double speed) {
+    P = speed;
+    I = speed;
+    D= speed;
     PIDLeft();
     PIDRight();
     leftMotor.set(ControlMode.PercentOutput, rcwLeft);
