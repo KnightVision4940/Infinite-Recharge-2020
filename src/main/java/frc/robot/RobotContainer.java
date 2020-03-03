@@ -10,9 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.AutoLeft;
 import frc.robot.commands.BallSuck;
 import frc.robot.commands.OutTake;
+import frc.robot.commands.autonomous.A_FurthestFromWall;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  private final AutoLeft m_autoCommand = new AutoLeft();
+  private final A_FurthestFromWall m_autoCommand = new A_FurthestFromWall();
 
 
 
@@ -50,6 +50,7 @@ public class RobotContainer {
     JoystickButton aButton_drive = new JoystickButton(xbox, 1);
     
     // JoystickButton bButton = new JoystickButton(xbox, 1);
+    //Wouldn't it be great just to go insane?
     // JoystickButton yButton = new JoystickButton(xbox, 3);
     aButton.whileHeld(new OutTake());
     aButton_drive.toggleWhenPressed(new BallSuck());

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,7 +22,7 @@ public class DriveForward extends CommandBase {
 
   //red - 227 27 35 (0.89, 0.11, 0.14)
   //Electric Blue - 15 78 171 (0.06, 0.31, 0.67)
-  private boolean driveToColour;
+  private boolean driveToColour = false;
   private double[] redTape = {0.89, 0.11, 0.14};
   private double[] blueTape = {0.06, 0.31, 0.67};
 
@@ -34,11 +34,11 @@ public class DriveForward extends CommandBase {
   /**
    * Creates a new DriveForward.
    */
-  public DriveForward(double speed, int encoderStop, double ultrasonic, boolean driveToColour) {
+  public DriveForward(double speed, int encoderStop, double ultrasonic) {
     this.speed = speed;
     this.encoderStop = encoderStop;
     this.ultrasonic = ultrasonic;
-    this.driveToColour = driveToColour;
+    // this.driveToColour = driveToColour;
 
 
     addRequirements(Robot.drive);

@@ -48,6 +48,7 @@ public class ColourWheel extends SubsystemBase {
     // // SmartDashboard.putNumber("Blue", detectedColor.blue);
     // SmartDashboard.putNumber("IR", IR);
     // int proximity = m_colorSensor.getProximity();
+    //dont h8 be gr8 brad waz here
 
     // SmartDashboard.putNumber("Proximity", proximity);
 

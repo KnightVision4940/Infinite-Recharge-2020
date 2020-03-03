@@ -85,6 +85,8 @@ public class OutTakeSubsystem extends SubsystemBase {
 
   public double getVelocity(){
     return outtakeEncoder.getVelocity();
-
+  }
+  public double getPosition(){
+    return outtakeEncoder.getPosition();
   }
 }
