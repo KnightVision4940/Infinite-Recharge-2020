@@ -25,7 +25,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  private final A_FurthestFromWall m_autoCommand = new A_FurthestFromWall();
+  private final A_FurthestFromWall auto_1 = new A_FurthestFromWall();
+  private final A_Middle auto_2 = new A_Middle();
+  private final A_InFrontofPowerport auto_3 = new A_InFrontofPowerport();
 
 
 
@@ -64,8 +66,5 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }
+
 }

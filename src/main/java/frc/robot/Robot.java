@@ -57,9 +57,15 @@ public class Robot extends TimedRobot {
 <<<<<<< Updated upstream
     autoChooser = new SendableChooser();
     autoChooser.addDefault("Furthest From Wall - Auto 1", m_robotContainer.getAutonomousCommand());
+<<<<<<< Updated upstream
     autoChooser.addDefault("In front of Powerport - Auto 2", m_robotContainer.getAutonomousCommand());
 =======
     CamServer.camInit();
+>>>>>>> Stashed changes
+=======
+    autoChooser.addDefault("In front of Powerport - Auto 2", A_InFrontofPowerport());
+    autoChooser.addDefault("Middle - Auto 3", new );
+    autoChooser.addObject("Auto mode chooser", autoChooser);
 >>>>>>> Stashed changes
   }
 
