@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
   public static final XboxController x = new XboxController(Constants.xbox_drive);
   public static final XboxController x2 = new XboxController(Constants.xbox_shoot);
   public static OutTakeSubsystem sub_outtake = new OutTakeSubsystem();
-  public static Deployer pusher = new Deployer();
+  public static Deployer IntakeDeployer = new Deployer();
   public static climb Climber = new climb();
   public static Intake in_sub = new Intake();
   public static ColourWheel c_wheel = new ColourWheel();
@@ -54,7 +54,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     autoChooser = new SendableChooser();
     autoChooser.addDefault("Furthest From Wall - Auto 1", m_robotContainer.getAutonomousCommand());
