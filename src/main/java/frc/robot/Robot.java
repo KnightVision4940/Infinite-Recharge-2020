@@ -55,9 +55,13 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     autoChooser = new SendableChooser();
     autoChooser.addDefault("Furthest From Wall - Auto 1", m_robotContainer.getAutonomousCommand());
     autoChooser.addDefault("In front of Powerport - Auto 2", m_robotContainer.getAutonomousCommand());
+=======
+    CamServer.camInit();
+>>>>>>> Stashed changes
 =======
     CamServer.camInit();
 >>>>>>> Stashed changes
