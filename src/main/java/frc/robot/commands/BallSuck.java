@@ -7,27 +7,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants;
 import frc.robot.Robot;
-//s
 
-
-public class ControlClimb extends CommandBase {
+public class BallSuck extends CommandBase {
   /**
-   * Creates a new ControlClimb.
+   * Creates a new Intake.
    */
-  
-  Joystick xbox = new Joystick(Constants.xbox_drive);
-  JoystickButton rBumper = new JoystickButton(xbox, Constants.RB);
-  JoystickButton lBumper = new JoystickButton(xbox, Constants.LB);
-  int speed;
-  
-  public ControlClimb(int speed) {
-    this.speed=speed;
+  public BallSuck() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -39,11 +26,13 @@ public class ControlClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.Climber.move(Robot.getY2Left());
+    Robot.in_sub.move();
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.in_sub.stop();
   }
 
   // Returns true when the command should end.

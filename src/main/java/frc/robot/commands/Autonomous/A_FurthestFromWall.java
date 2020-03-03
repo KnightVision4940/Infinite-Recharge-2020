@@ -16,10 +16,10 @@ public class AutoLeft extends SequentialCommandGroup {
   /**
    * Creates a new AutoOne.
    */
-
   //  DriveForward(Turn,Speed,Stop Position)
   public AutoLeft() {
-    super(new DriveForward(0.3,50,40,false));
+    //(Speed,Encoder,ultrasonic)
+    super(new DriveForward(0.3,0,40),new DriveTurn(90),new DriveForward(0.3, 50, 0),new Auto_Outake(1000), new DriveForward(-0.3, -20, 0));
     // addCommands(new DriveForward(true,false,0,0.5));
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());

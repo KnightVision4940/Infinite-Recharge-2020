@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.AutoLeft;
+import frc.robot.commands.BallSuck;
 import frc.robot.commands.OutTake;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -38,18 +39,22 @@ public class RobotContainer {
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
+   * instantiating a {@link GenericHID} or one of its subclasses ({@
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
     Joystick xbox = new Joystick(Constants.xbox_drive);
-    JoystickButton aButton = new JoystickButton(xbox, 1);
-    JoystickButton xButton = new JoystickButton(xbox, 3);
+    Joystick xbox2 = new Joystick(Constants.xbox_shoot);
+    JoystickButton aButton = new JoystickButton(xbox2, 1);
+    JoystickButton aButton_drive = new JoystickButton(xbox, 1);
+    
     // JoystickButton bButton = new JoystickButton(xbox, 1);
     //Wouldn't it be great just to go insane?
     // JoystickButton yButton = new JoystickButton(xbox, 3);
     aButton.whileHeld(new OutTake());
+    aButton_drive.toggleWhenPressed(new BallSuck());
+    // aButton.toggleWhenPressed(new OutTake());
   }
   // xButton.toggleWhenPressed(new OutTake());
 

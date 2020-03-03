@@ -13,11 +13,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OutTakeSubsystem;
 import frc.robot.subsystems.climb;
-import frc.robot.subsystems.colourWheel;
+import frc.robot.subsystems.ColourWheel;
 import frc.robot.subsystems.Deployer;
 import frc.robot.commands.Drive;
+import frc.robot.commands.TestControl;
 import frc.robot.Constants;
 
 /**
@@ -33,10 +35,12 @@ public class Robot extends TimedRobot {
 
   public static DriveTrain drive = new DriveTrain(Constants.LeftF_drive, Constants.LeftB_drive, Constants.RightF_drive, Constants.RightB_drive);
   public static final XboxController x = new XboxController(Constants.xbox_drive);
+  public static final XboxController x2 = new XboxController(Constants.xbox_shoot);
   public static OutTakeSubsystem sub_outtake = new OutTakeSubsystem();
   public static Deployer pusher = new Deployer();
   public static climb Climber = new climb();
-  public static colourWheel c_wheel = new colourWheel();
+  public static Intake in_sub = new Intake();
+  public static ColourWheel c_wheel = new ColourWheel();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -128,6 +132,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    CommandScheduler.getInstance().schedule(new TestControl());
+
   }
 
   public static double getTriggers(){
@@ -141,6 +147,45 @@ public class Robot extends TimedRobot {
   public static double getXLeft() {
     double deadzone = 0.05;
     double rawPos = x.getRawAxis(0);
+    if(rawPos > -deadzone && rawPos < deadzone) {
+      return 0;
+    }
+    return rawPos;
+  }
+ 
+  public static boolean leftBumper(){
+    return x.getRawButton(5);
+  }
+  
+  public static boolean rightBumper(){
+    return x.getRawButton(6);
+  }
+
+  public static double getYRight() {
+    double deadzone = 0.05;
+    double rawPos = x.getRawAxis(5);
+    if(rawPos > -deadzone && rawPos < deadzone) {
+      return 0;
+    }
+    else {
+      return rawPos;
+    }
+  
+  }
+  public static double getY2Right() {
+    double deadzone = 0.05;
+    double rawPos = x2.getRawAxis(5);
+    if(rawPos > -deadzone && rawPos < deadzone) {
+      return 0;
+    }
+    else {
+      return rawPos;
+    }
+  
+  }
+  public static double getY2Left() {
+    double deadzone = 0.05;
+    double rawPos = x2.getRawAxis(1);
     if(rawPos > -deadzone && rawPos < deadzone) {
       return 0;
     }

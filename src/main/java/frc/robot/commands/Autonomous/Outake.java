@@ -7,40 +7,41 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants;
 import frc.robot.Robot;
-//s
 
-
-public class ControlClimb extends CommandBase {
+public class Auto_Outake extends CommandBase {
   /**
-   * Creates a new ControlClimb.
+   * Creates a new Auto_Outake.
    */
-  
-  Joystick xbox = new Joystick(Constants.xbox_drive);
-  JoystickButton rBumper = new JoystickButton(xbox, Constants.RB);
-  JoystickButton lBumper = new JoystickButton(xbox, Constants.LB);
-  int speed;
-  
-  public ControlClimb(int speed) {
-    this.speed=speed;
+  private int p_toTravel = 0;
+  private double currentEncoder = 0;
+  private double startEncoder = 0;
+
+  public Auto_Outake(int p_toTravel) {
+    addRequirements(Robot.sub_outtake);
+    this.p_toTravel = -p_toTravel;
+    
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    startEncoder = Robot.sub_outtake.getPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.Climber.move(Robot.getY2Left());
+    currentEncoder = Robot.sub_outtake.getPosition();
+    if(p_toTravel <= currentEncoder - startEncoder){
+      Robot.sub_outtake.move(-0.9,-1.0);
+    }else{
+      end(true);
+    }
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

@@ -10,7 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.colourWheel;
+import frc.robot.subsystems.ColourWheel;
 import edu.wpi.first.wpilibj.DriverStation;
 
 public class goToColour extends CommandBase {
@@ -18,7 +18,7 @@ public class goToColour extends CommandBase {
    * Creates a new goToColour.
    */
   private int colourToGoTo;
-  colourWheel m_colourWheel = new colourWheel();
+  ColourWheel m_colourWheel = new ColourWheel();
   public goToColour() {
     // Use addRequirements() here to declare subsystem dependencies.
   }

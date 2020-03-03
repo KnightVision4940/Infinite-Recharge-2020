@@ -13,6 +13,8 @@ import com.revrobotics.CANSparkMax;
 // import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import java.util.concurrent.TimeUnit;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SPI;
@@ -26,7 +28,7 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Creates a new DriveTrain.
    */
-  
+
   // static WPI_VictorSPX leftFront;
   // static WPI_VictorSPX leftBack;
   // static WPI_VictorSPX rightFront;
@@ -46,12 +48,12 @@ public class DriveTrain extends SubsystemBase {
 
   private static final int kUltrasonicPort = 0;
   private static final double kValueToInches = 0.125;
-  
+
   private final AnalogInput m_ultrasonic = new AnalogInput(kUltrasonicPort);
 
   static DifferentialDrive drive;
-    
-  public DriveTrain(int leftF,int leftB, int rightF, int rightB) {
+
+  public DriveTrain(int leftF, int leftB, int rightF, int rightB) {
     leftFront = new CANSparkMax(leftF, MotorType.kBrushless);
     leftBack = new CANSparkMax(leftB, MotorType.kBrushless);
     rightFront = new CANSparkMax(rightF, MotorType.kBrushless);
@@ -61,7 +63,6 @@ public class DriveTrain extends SubsystemBase {
     encoderLF = new CANEncoder(leftFront);
     encoderRB = new CANEncoder(rightBack);
     encoderRF = new CANEncoder(rightFront);
-    
 
     SPI.Port kGyroPort = SPI.Port.kOnboardCS0;
     gyro = new ADXRS450_Gyro(kGyroPort);
@@ -70,83 +71,126 @@ public class DriveTrain extends SubsystemBase {
     // rightFront = new WPI_VictorSPX(rightF);
     // rightBack = new WPI_VictorSPX(rightB);
 
-    SpeedControllerGroup Left = new SpeedControllerGroup(leftFront,leftBack);
+    SpeedControllerGroup Left = new SpeedControllerGroup(leftFront, leftBack);
     SpeedControllerGroup Right = new SpeedControllerGroup(rightFront, rightBack);
-    
-    
+
+    drive = new DifferentialDrive(Left, Right);
   }
-  public void drive(double speed, double turn){
-    drive.arcadeDrive(speed, turn,true);
+
+  public void drive(double speed, double turn) {
+    drive.arcadeDrive(speed, turn, true);
   }
-  public void resetGyro(){
+
+  public void resetGyro() {
     gyro.reset();
   }
-  public void calibrateGyro(){
+
+  public void calibrateGyro() {
     gyro.calibrate();
   }
-  public void stop(){
-    drive.arcadeDrive(0, 0,true);
+
+  public void stop() {
+    drive.arcadeDrive(0, 0, true);
   }
-  public void autoDrive(double speed, double turnSpeed){
-    if(turnSpeed != 0.0){
+
+  public void autoDrive(double speed, double turnSpeed) {
+    if (turnSpeed != 0.0) {
       drive(speed, turnSpeed);
-    }else if(turnSpeed == 0.0){
-      driveStraightGyro(speed);
-      System.out.println("Running Gyro");
-    }
-  }
-  public void teleop(double speed, double turnSpeed) {
-    double bumpThreshold = 1.9; // degrees turned in one 80hz interval?
-    if(turnSpeed != 0.0 && gyro.getRate() > bumpThreshold){
-      drive(speed, turnSpeed);
-    }else if(turnSpeed == 0.0){
+    } else if (turnSpeed == 0.0) {
       driveStraightGyro(speed);
       System.out.println("Running Gyro");
     }
   }
 
-  public boolean turnToAngle(int angle, double speed){
-    if(angle > gyro.getAngle()){
-      drive(0,speed);
+  public void telopDrive(double speed, double turnSpeed) {
+    double deadband = 0.1;
+    if (turnSpeed >= deadband || turnSpeed <= deadband) {
+      drive(speed, turnSpeed);
+    } else if (turnSpeed == 0.0) {
+      driveStraightGyro(speed);
+      System.out.println("Running Gyro");
+    }
+  }
+  // public void teleop(double speed, double turnSpeed) {
+  // double bumpThreshold = 1.9; // degrees turned in one 80hz interval?
+  // if(turnSpeed != 0.0 && gyro.getRate() > bumpThreshold){
+  // drive(speed, turnSpeed);
+  // }else if(turnSpeed == 0.0){
+  // driveStraightGyro(speed);
+  // System.out.println("Running Gyro");
+  // }
+  // }
+
+  public boolean turnToAngle(int angle, double speed) {
+    if (angle > gyro.getAngle()) {
+      drive(0, speed);
       return false;
-    }else{
+    } else {
       stop();
       return true;
     }
   }
 
-  public void driveStraightGyro(double speed){
+  public void driveStraightGyro(double speed) {
     double p = 0.05;
-    double error = -gyro.getAngle(); 
+    double error = -gyro.getAngle();
     double turn = p * error;
-    drive.arcadeDrive(speed, turn);   
+    drive.arcadeDrive(speed, turn);
   }
 
-  public void encodersOnDashboard(){
+  public void encodersOnDashboard() {
     SmartDashboard.putNumber("Encoder Left Back", getEncoderLB());
     SmartDashboard.putNumber("Encoder Right Back", getEncoderRB());
     SmartDashboard.putNumber("Encoder Left Front", getEncoderLF());
     SmartDashboard.putNumber("Encoder Right Front", getEncoderRF());
   }
 
-  public double getEncoderLB(){
+  public double getEncoderLB() {
     return encoderLB.getPosition();
   }
 
-  public double getEncoderLF(){
+  public double getEncoderLF() {
     return encoderLF.getPosition();
   }
 
-  public double getEncoderRB(){
+  public double getEncoderRB() {
     return encoderRB.getPosition();
-  }  
+  }
 
-  public double getEncoderRF(){
+  public double getEncoderRF() {
     return encoderRF.getPosition();
   }
 
-  public double getUltrasonic(){
+  public double getUltrasonic() {
     return m_ultrasonic.getValue() * kValueToInches;
+  }
+
+  public void test(int motor, double speed) {
+    if (motor == 0) {
+      leftFront.set(speed);
+      wait(3);
+      motor++;
+    }else if(motor == 1){
+      leftBack.set(speed);
+      wait(3);
+      motor++;
+    }else if(motor == 3){
+      rightFront.set(speed);
+      wait(3);
+      motor++;
+    }else if(motor  == 4){
+      rightBack.set(speed);
+      motor=5;
+    }
+  }
+
+  private void wait(int seconds){
+    try {
+      TimeUnit.SECONDS.sleep(seconds);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   @Override
