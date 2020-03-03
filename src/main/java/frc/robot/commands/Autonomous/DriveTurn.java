@@ -30,6 +30,10 @@ public class DriveTurn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    int angle = 0;
+    if(speed < 0) { 
+      angle = -angle; 
+    }
     Robot.drive.turnToAngle(angle, speed);
   }
 
