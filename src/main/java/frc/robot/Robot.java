@@ -54,13 +54,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-<<<<<<< Updated upstream
     autoChooser = new SendableChooser();
     autoChooser.addDefault("Furthest From Wall - Auto 1", m_robotContainer.getAutonomousCommand());
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
     autoChooser.addDefault("In front of Powerport - Auto 2", A_InFrontofPowerport());
     autoChooser.addDefault("Middle - Auto 3", new );
     autoChooser.addObject("Auto mode chooser", autoChooser);
@@ -99,7 +94,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
   
 
     // schedule the autonomous command (example)
