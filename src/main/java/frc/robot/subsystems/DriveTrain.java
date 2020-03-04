@@ -13,7 +13,6 @@ import com.revrobotics.CANSparkMax;
 // import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import java.util.concurrent.TimeUnit;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
