@@ -12,7 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 
 
 public class climb extends SubsystemBase {
@@ -21,7 +20,7 @@ public class climb extends SubsystemBase {
   static TalonFX rightMotor;
 
   static double P, I, D;
-  static double integral, previous_error, setpoint = 0;
+  private double integral, previous_error, setpoint = 0;
   private double rcwLeft;
   private double rcwRight;
   /**
@@ -30,15 +29,8 @@ public class climb extends SubsystemBase {
   public climb() {
     leftMotor = new TalonFX(Constants.Motor1Climb);
     rightMotor = new TalonFX(Constants.Motor2Climb);
-<<<<<<< Updated upstream
   // encoderRight = new CANCoder(Constants.Motor2Climb);
   // encoderLeft = new CANCoder(Constants.Motor1Climb);
-=======
-    
-  // encoderLeft = new CANCoder(Constants.Motor1Climb);
-  // encoderRight = new CANCoder(Constants.Motor2Climb);
-    
->>>>>>> Stashed changes
   }
 
   @Override
@@ -74,13 +66,6 @@ public class climb extends SubsystemBase {
     return rightMotor.getSelectedSensorPosition();
   }
 
-  public int leftPos(){
-    return leftMotor.getSelectedSensorPosition();
-  } 
-
-  public int rightPos(){
-    return rightMotor.getSelectedSensorPosition();
-  }
 
   public void setSetpoint(int setpoint)
   {
