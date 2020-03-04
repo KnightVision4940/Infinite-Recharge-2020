@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -45,7 +46,7 @@ public class Robot extends TimedRobot {
   public static climb Climber = new climb();
   public static Intake in_sub = new Intake();
   public static ColourWheel c_wheel = new ColourWheel();
-  SendableChooser autoChooser;
+  SendableChooser<Command> autoChooser;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -56,11 +57,11 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     // m_robotContainer = new RobotContainer();
-    autoChooser = new SendableChooser();
+    autoChooser = new SendableChooser<Command>();
     autoChooser.addDefault("Furthest From Wall - Auto 1", new A_FurthestFromWall());
-    autoChooser.addDefault("In front of Powerport - Auto 2", new A_FrontOfPowerPorrt());
-    autoChooser.addDefault("Middle - Auto 3", new A_Middle());
-    autoChooser.addObject("Auto mode chooser", autoChooser);
+    autoChooser.addObject("In front of Powerport - Auto 2", new A_FrontOfPowerPorrt());
+    autoChooser.addObject("Middle - Auto 3", new A_Middle());
+    SmartDashboard.putData("Autonomous Chooser:", autoChooser);
   }
 
   /**
