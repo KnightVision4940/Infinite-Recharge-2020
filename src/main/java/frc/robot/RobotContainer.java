@@ -49,7 +49,6 @@ public class RobotContainer {
     JoystickButton aButton_drive = new JoystickButton(xbox, 1);
     
     // JoystickButton bButton = new JoystickButton(xbox, 1);
-    //Wouldn't it be great just to go insane?
     // JoystickButton yButton = new JoystickButton(xbox, 3);
     aButton.whileHeld(new OutTake(0.7));
     XButton.whileHeld(new OutTake(0.9));

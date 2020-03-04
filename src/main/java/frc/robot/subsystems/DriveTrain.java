@@ -52,6 +52,7 @@ public class DriveTrain extends SubsystemBase {
   private double waitTime = 3;
   
 
+  // drivetrain main function --- defines vars
   public DriveTrain(int leftF, int leftB, int rightF, int rightB) {
     leftFront = new CANSparkMax(leftF, MotorType.kBrushless);
     leftBack = new CANSparkMax(leftB, MotorType.kBrushless);
@@ -72,10 +73,16 @@ public class DriveTrain extends SubsystemBase {
     drive = new DifferentialDrive(Left, Right);
   }
 
+
+  //basic drive
   public void drive(double speed, double turn) {
     drive.arcadeDrive(speed, turn, true);
   }
+  public void stop() {
+    drive.arcadeDrive(0, 0, true);
+  }
 
+  //gyro code
   public void resetGyro() {
     gyro.reset();
   }
@@ -84,9 +91,7 @@ public class DriveTrain extends SubsystemBase {
     gyro.calibrate();
   }
 
-  public void stop() {
-    drive.arcadeDrive(0, 0, true);
-  }
+  //auto drive && teletop drive
 
   public void autoDrive(double speed, double turnSpeed) {
     if (turnSpeed != 0.0) {
@@ -97,6 +102,7 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
+  //has deband
   public void telopDrive(double speed, double turnSpeed) {
     double deadband = 0.1;
     if (turnSpeed >= deadband || turnSpeed <= deadband) {
@@ -116,6 +122,9 @@ public class DriveTrain extends SubsystemBase {
   // }
   // }
 
+
+  //auto turning
+  //In need of testing
   public boolean turnToAngle(int angle, double speed) {
     if (angle > gyro.getAngle()) {
       drive(0, speed);
@@ -126,12 +135,14 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
+  //dirve straight
   public void driveStraightGyro(double speed) {
     double p = 0.05;
     double error = -gyro.getAngle();
     double turn = p * error;
     drive.arcadeDrive(speed, turn);
   }
+
 
   public void encodersOnDashboard() {
     SmartDashboard.putNumber("Encoder Left Back", getEncoderLB());
@@ -140,6 +151,7 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("Encoder Right Front", getEncoderRF());
   }
 
+  //return values of each encoder
   public double getEncoderLB() {
     return encoderLB.getPosition();
   }
@@ -156,10 +168,14 @@ public class DriveTrain extends SubsystemBase {
     return encoderRF.getPosition();
   }
 
+
+  //gets ultrasonic distance
   public double getUltrasonic() {
     return m_ultrasonic.getValue() * kValueToInches;
   }
 
+
+  //test code
   public void test(int motor, double speed) {
     if (motor == 0) {
       leftFront.set(speed);
