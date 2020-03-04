@@ -8,6 +8,7 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -31,6 +32,11 @@ public class DriveForward extends CommandBase {
   private double redRange=0.1;
   private double blueRange=0.1;
   private double greenRange=0.1;
+
+  private int detectDistance = 50;
+  private Timer t = new Timer();
+  private double waitTime = 3;
+
   /**
    * Creates a new DriveForward.
    */
@@ -63,7 +69,12 @@ public class DriveForward extends CommandBase {
       if(ultrasonic == 0){
         ultrasonicDrive();
       }else{
-        encoderDrive();
+        if(robotDetection()){
+          encoderDrive();
+        }else{
+          Robot.drive.stop();
+        }
+   
       }
     }
   }
@@ -79,32 +90,28 @@ public class DriveForward extends CommandBase {
     }
   }
 
-  public void toColourTape(){
-    double[] rgb = Robot.c_wheel.returnColour();
-    if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue){
-      Robot.drive.autoDrive(speed, 0);
-      if(inRange(rgb[0], blueTape[0] - redRange, blueTape[0] + redRange, rgb[1], blueTape[1] - greenRange, blueTape[1] + greenRange, rgb[2], blueTape[2] - blueRange, blueTape[2] + blueRange) && stages == 0 || stages == 2){
-        stages += 1;
-      }else if(inRange(rgb[0], blueTape[0] - redRange, blueTape[0] + redRange, rgb[1], blueTape[1] - greenRange, blueTape[1] + greenRange, rgb[2], blueTape[2] - blueRange, blueTape[2] + blueRange) == false && stages == 1){
-        stages += 2;
-      }else if(stages == 3){
-        speed = 0;
-        turnThing();
-      }
-    }else if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red){
-      Robot.drive.autoDrive(speed, 0);
-      if(inRange(rgb[0], redTape[0] - redRange, redTape[0] + redRange, rgb[1], redTape[1] - greenRange, redTape[1] + greenRange, rgb[2], redTape[2] - blueRange, redTape[2] + blueRange) && stages == 0 || stages == 2){
-        stages += 1;
-      }else if(inRange(rgb[0], redTape[0] - redRange, redTape[0] + redRange, rgb[1], redTape[1] - greenRange, redTape[1] + greenRange, rgb[2], redTape[2] - blueRange, redTape[2] + blueRange) == false && stages == 1){
-        stages += 2;
-      }else if(stages == 3){
-        speed = 0;
-        turnThing();
+  public boolean robotDetection(){
+    double time = t.get();
+    if(Robot.drive.getUltrasonic() <= detectDistance){
+      if(time == 0.0){
+        t.start();
+        return true;
+      }else if(time < 3){
+        return true;
+      }else{
+        t.stop();
+        return false;
       }
     }else{
-      System.out.println("Error");
+      return true;
     }
   }
+
+  private void startTimer(){
+    t.start();
+    t.reset();
+  }
+
 
   public void encoderDrive(){
     curEncoder =Robot.drive.getEncoderLB();
@@ -135,6 +142,34 @@ public class DriveForward extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+
+
+public void toColourTape(){
+  double[] rgb = Robot.c_wheel.returnColour();
+  if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue){
+    Robot.drive.autoDrive(speed, 0);
+    if(inRange(rgb[0], blueTape[0] - redRange, blueTape[0] + redRange, rgb[1], blueTape[1] - greenRange, blueTape[1] + greenRange, rgb[2], blueTape[2] - blueRange, blueTape[2] + blueRange) && stages == 0 || stages == 2){
+      stages += 1;
+    }else if(inRange(rgb[0], blueTape[0] - redRange, blueTape[0] + redRange, rgb[1], blueTape[1] - greenRange, blueTape[1] + greenRange, rgb[2], blueTape[2] - blueRange, blueTape[2] + blueRange) == false && stages == 1){
+      stages += 2;
+    }else if(stages == 3){
+      speed = 0;
+      turnThing();
+    }
+  }else if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red){
+    Robot.drive.autoDrive(speed, 0);
+    if(inRange(rgb[0], redTape[0] - redRange, redTape[0] + redRange, rgb[1], redTape[1] - greenRange, redTape[1] + greenRange, rgb[2], redTape[2] - blueRange, redTape[2] + blueRange) && stages == 0 || stages == 2){
+      stages += 1;
+    }else if(inRange(rgb[0], redTape[0] - redRange, redTape[0] + redRange, rgb[1], redTape[1] - greenRange, redTape[1] + greenRange, rgb[2], redTape[2] - blueRange, redTape[2] + blueRange) == false && stages == 1){
+      stages += 2;
+    }else if(stages == 3){
+      speed = 0;
+      turnThing();
+    }
+  }else{
+    System.out.println("Error");
+  }
+}
 }
 
 //g@briel wuz here
