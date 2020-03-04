@@ -30,8 +30,15 @@ public class climb extends SubsystemBase {
   public climb() {
     leftMotor = new TalonFX(Constants.Motor1Climb);
     rightMotor = new TalonFX(Constants.Motor2Climb);
+<<<<<<< Updated upstream
   // encoderRight = new CANCoder(Constants.Motor2Climb);
   // encoderLeft = new CANCoder(Constants.Motor1Climb);
+=======
+    
+  // encoderLeft = new CANCoder(Constants.Motor1Climb);
+  // encoderRight = new CANCoder(Constants.Motor2Climb);
+    
+>>>>>>> Stashed changes
   }
 
   @Override
@@ -57,6 +64,14 @@ public class climb extends SubsystemBase {
   }
 
   public void Climbing(){
+  }
+
+  public int leftPos(){
+    return leftMotor.getSelectedSensorPosition();
+  } 
+
+  public int rightPos(){
+    return rightMotor.getSelectedSensorPosition();
   }
 
   public int leftPos(){
