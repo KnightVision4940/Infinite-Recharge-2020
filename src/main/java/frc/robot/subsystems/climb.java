@@ -30,6 +30,8 @@ public class climb extends SubsystemBase {
   public climb() {
     leftMotor = new TalonFX(Constants.Motor1Climb);
     rightMotor = new TalonFX(Constants.Motor2Climb);
+  // encoderRight = new CANCoder(Constants.Motor2Climb);
+  // encoderLeft = new CANCoder(Constants.Motor1Climb);
   }
 
   @Override
@@ -37,17 +39,32 @@ public class climb extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void move(double speed) {
+  public void move(double speed, double topLimit, double bottomLimit) {
     P = speed;
     I = speed;
-    D= speed;
+    D = speed;
+    int l_position = leftPos();
     PIDLeft();
     PIDRight();
-    leftMotor.set(ControlMode.PercentOutput, rcwLeft);
-    rightMotor.set(ControlMode.PercentOutput, rcwRight);
+    if(speed > 0 && topLimit < l_position){
+      leftMotor.set(ControlMode.PercentOutput, rcwLeft);
+      rightMotor.set(ControlMode.PercentOutput, rcwRight);
+    }else if(speed < 0 && bottomLimit > l_position){
+      leftMotor.set(ControlMode.PercentOutput, rcwLeft);
+      rightMotor.set(ControlMode.PercentOutput, rcwRight);
+    }
+    
   }
 
   public void Climbing(){
+  }
+
+  public int leftPos(){
+    return leftMotor.getSelectedSensorPosition();
+  } 
+
+  public int rightPos(){
+    return rightMotor.getSelectedSensorPosition();
   }
 
   public void setSetpoint(int setpoint)
