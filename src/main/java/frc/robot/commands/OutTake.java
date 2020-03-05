@@ -9,15 +9,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.OutTakeSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OutTake extends CommandBase {
   /**
    * Creates a new OutTake.
    */
-  public OutTake() {
+  double speed;
+  public OutTake(double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.speed = speed;
   }
 
   // Called when the command is initially scheduled.
@@ -48,7 +49,7 @@ public class OutTake extends CommandBase {
   }
 
   public void spinMotor() {
-    Robot.sub_outtake.move(-0.9,-1.0);
+    Robot.sub_outtake.move(-speed,-1.0);
     //you are good at coding!!!!!!!!
   }
 }

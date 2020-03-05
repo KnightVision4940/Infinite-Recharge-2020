@@ -36,7 +36,7 @@ import frc.robot.Constants;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  // private RobotContainer m_robotContainer;
 
   public static DriveTrain drive = new DriveTrain(Constants.LeftF_drive, Constants.LeftB_drive, Constants.RightF_drive, Constants.RightB_drive);
   public static final XboxController x = new XboxController(Constants.xbox_drive);
@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
   public static climb Climber = new climb();
   public static Intake in_sub = new Intake();
   public static ColourWheel c_wheel = new ColourWheel();
-  SendableChooser autoChooser;
+  SendableChooser<Command> autoChooser;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -56,12 +56,12 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
-    autoChooser = new SendableChooser();
+    // m_robotContainer = new RobotContainer();
+    autoChooser = new SendableChooser<Command>();
     autoChooser.addDefault("Furthest From Wall - Auto 1", new A_FurthestFromWall());
-    autoChooser.addDefault("In front of Powerport - Auto 2", new A_FrontOfPowerPorrt());
-    autoChooser.addDefault("Middle - Auto 3", new A_Middle());
-    autoChooser.addObject("Auto mode chooser", autoChooser);
+    autoChooser.addObject("In front of Powerport - Auto 2", new A_FrontOfPowerPorrt());
+    autoChooser.addObject("Middle - Auto 3", new A_Middle());
+    SmartDashboard.putData("Autonomous Chooser:", autoChooser);
   }
 
   /**
@@ -145,6 +145,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     CommandScheduler.getInstance().schedule(new TestControl());
+    CommandScheduler.getInstance().run();
+
 
   }
 

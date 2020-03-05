@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class BumpDetector extends CommandBase {
@@ -30,7 +29,7 @@ public class BumpDetector extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rate = gyro.getRate();
+    // double rate = gyro.getRate();
     if(gyro.getRate() > bumpThreshold) {
       // correct the bump
       

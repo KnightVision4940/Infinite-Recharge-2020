@@ -13,13 +13,12 @@ import com.revrobotics.CANSparkMax;
 // import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import java.util.concurrent.TimeUnit;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-// import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,11 +27,6 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Creates a new DriveTrain.
    */
-
-  // static WPI_VictorSPX leftFront;
-  // static WPI_VictorSPX leftBack;
-  // static WPI_VictorSPX rightFront;
-  // static WPI_VictorSPX rightBack;
 
   static CANSparkMax leftFront;
   static CANSparkMax leftBack;
@@ -53,6 +47,11 @@ public class DriveTrain extends SubsystemBase {
 
   static DifferentialDrive drive;
 
+  private static Timer t = new Timer();
+  private double waitTime = 3;
+  
+
+  // drivetrain main function --- defines vars
   public DriveTrain(int leftF, int leftB, int rightF, int rightB) {
     leftFront = new CANSparkMax(leftF, MotorType.kBrushless);
     leftBack = new CANSparkMax(leftB, MotorType.kBrushless);
@@ -66,10 +65,6 @@ public class DriveTrain extends SubsystemBase {
 
     SPI.Port kGyroPort = SPI.Port.kOnboardCS0;
     gyro = new ADXRS450_Gyro(kGyroPort);
-    // leftFront = new WPI_VictorSPX(leftF);
-    // leftBack = new WPI_VictorSPX(leftB);
-    // rightFront = new WPI_VictorSPX(rightF);
-    // rightBack = new WPI_VictorSPX(rightB);
 
     SpeedControllerGroup Left = new SpeedControllerGroup(leftFront, leftBack);
     SpeedControllerGroup Right = new SpeedControllerGroup(rightFront, rightBack);
@@ -77,10 +72,16 @@ public class DriveTrain extends SubsystemBase {
     drive = new DifferentialDrive(Left, Right);
   }
 
+
+  //basic drive
   public void drive(double speed, double turn) {
     drive.arcadeDrive(speed, turn, true);
   }
+  public void stop() {
+    drive.arcadeDrive(0, 0, true);
+  }
 
+  //gyro code
   public void resetGyro() {
     gyro.reset();
   }
@@ -89,9 +90,7 @@ public class DriveTrain extends SubsystemBase {
     gyro.calibrate();
   }
 
-  public void stop() {
-    drive.arcadeDrive(0, 0, true);
-  }
+  //auto drive && teletop drive
 
   public void autoDrive(double speed, double turnSpeed) {
     if (turnSpeed != 0.0) {
@@ -102,6 +101,7 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
+  //has deband
   public void telopDrive(double speed, double turnSpeed) {
     double deadband = 0.1;
     if (turnSpeed >= deadband || turnSpeed <= deadband) {
@@ -121,6 +121,9 @@ public class DriveTrain extends SubsystemBase {
   // }
   // }
 
+
+  //auto turning
+  //In need of testing
   public boolean turnToAngle(int angle, double speed) {
     if (angle > gyro.getAngle()) {
       drive(0, speed);
@@ -131,12 +134,14 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
+  //dirve straight
   public void driveStraightGyro(double speed) {
     double p = 0.05;
     double error = -gyro.getAngle();
     double turn = p * error;
     drive.arcadeDrive(speed, turn);
   }
+
 
   public void encodersOnDashboard() {
     SmartDashboard.putNumber("Encoder Left Back", getEncoderLB());
@@ -145,6 +150,7 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("Encoder Right Front", getEncoderRF());
   }
 
+  //return values of each encoder
   public double getEncoderLB() {
     return encoderLB.getPosition();
   }
@@ -161,38 +167,40 @@ public class DriveTrain extends SubsystemBase {
     return encoderRF.getPosition();
   }
 
+
+  //gets ultrasonic distance
   public double getUltrasonic() {
     return m_ultrasonic.getValue() * kValueToInches;
   }
 
+
+  //test code
   public void test(int motor, double speed) {
     if (motor == 0) {
       leftFront.set(speed);
-      wait(3);
+      startTimer();
       motor++;
-    }else if(motor == 1){
+    }else if(motor == 1 && t.get() == waitTime*1){
+      leftFront.set(0);
       leftBack.set(speed);
-      wait(3);
       motor++;
-    }else if(motor == 3){
+    }else if(motor == 2 &&  t.get() == waitTime*2){
+      leftBack.set(0);
       rightFront.set(speed);
-      wait(3);
       motor++;
-    }else if(motor  == 4){
+    }else if(motor  == 3 && t.get() == waitTime*3){
+      rightFront.set(0);
       rightBack.set(speed);
-      motor=5;
+      motor=4;
+    }else if(motor  == 4 && t.get() == waitTime*4){
+      rightBack.set(speed);
+      motor=4;
     }
   }
 
-  private void wait(int seconds){
-    try {
-      TimeUnit.SECONDS.sleep(seconds);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+  private void startTimer(){
+    t.start();
   }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
