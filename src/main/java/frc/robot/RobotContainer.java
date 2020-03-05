@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.BallSuck;
+import frc.robot.commands.ControlClimb;
 import frc.robot.commands.OutTake;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -43,6 +44,7 @@ public class RobotContainer {
     Joystick xbox = new Joystick(Constants.xbox_drive);
     Joystick xbox2 = new Joystick(Constants.xbox_shoot);
     JoystickButton aButton = new JoystickButton(xbox2, 1);
+    JoystickButton bButton = new JoystickButton(xbox2, 2);
     JoystickButton XButton = new JoystickButton(xbox2, 3);
     JoystickButton aButton_drive = new JoystickButton(xbox, 1);
     
@@ -50,6 +52,8 @@ public class RobotContainer {
     // JoystickButton yButton = new JoystickButton(xbox, 3);
     aButton.whileHeld(new OutTake(0.7));
     XButton.whileHeld(new OutTake(0.9));
+    bButton.toggleWhenPressed(new ControlClimb(0.5,false));
+    
     aButton_drive.toggleWhenPressed(new BallSuck());
     // aButton.toggleWhenPressed(new OutTake());
   }

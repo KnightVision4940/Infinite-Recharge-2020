@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 
 public class climb extends SubsystemBase {
@@ -23,6 +24,9 @@ public class climb extends SubsystemBase {
   private double integral, previous_error, setpoint = 0;
   private double rcwLeft;
   private double rcwRight;
+
+  private double topLimit;
+  private double bottomLimit;
   /**
    * Creates a new Climb.
    */
@@ -38,7 +42,7 @@ public class climb extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void move(double speed, double topLimit, double bottomLimit) {
+  public void move(double speed) {
     P = speed;
     I = speed;
     D = speed;
@@ -70,6 +74,10 @@ public class climb extends SubsystemBase {
   public void setSetpoint(int setpoint)
   {
       this.setpoint = setpoint;
+  }
+  public void setLimits(){
+    bottomLimit = leftPos();
+    topLimit = bottomLimit + 2000;
   }
   
   public void PIDLeft(){

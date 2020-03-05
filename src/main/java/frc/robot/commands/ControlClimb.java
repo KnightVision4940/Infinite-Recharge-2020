@@ -23,26 +23,33 @@ public class ControlClimb extends CommandBase {
   Joystick xbox = new Joystick(Constants.xbox_drive);
   JoystickButton rBumper = new JoystickButton(xbox, Constants.RB);
   JoystickButton lBumper = new JoystickButton(xbox, Constants.LB);
-  int speed;
+  double speed;
   int bottomLimit;
   int topLimit;
+  boolean setLimits;
   
-  public ControlClimb(int speed) {
+  public ControlClimb(double speed, boolean setLimits) {
     this.speed=speed;
+    this.setLimits = setLimits;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    bottomLimit = Robot.Climber.leftPos();
-    topLimit = bottomLimit + 2000;
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.Climber.move(Robot.getY2Left(), topLimit, bottomLimit);
+    if(setLimits){
+      Robot.Climber.setLimits();
+      end(true);
+    }else{
+      Robot.Climber.move(Robot.getY2Left());
+    }
+
   }
   // Called once the command ends or is interrupted.
   @Override
