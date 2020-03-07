@@ -7,7 +7,6 @@
 
 package frc.robot.subsystems;
 
-<<<<<<< Updated upstream
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorSensorV3;
@@ -16,17 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-=======
-import com.ctre.phoenix.motorcontrol.ControlMode;//imports stuff
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;//imports stuff
-import com.revrobotics.ColorSensorV3;//imports stuff
-
-import edu.wpi.first.wpilibj.I2C;//imports stuff
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;//imports stuff
-import edu.wpi.first.wpilibj.util.Color;//imports stuff
-import edu.wpi.first.wpilibj2.command.SubsystemBase;//imports stuff
-import frc.robot.Constants;//imports stuff
->>>>>>> Stashed changes
 
 public class ColourWheel extends SubsystemBase {
   /**
