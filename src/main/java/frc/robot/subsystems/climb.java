@@ -43,19 +43,19 @@ public class climb extends SubsystemBase {
   }
 
   public void move(double speed) {
-    P = speed;
-    I = speed;
-    D = speed;
-    int l_position = leftPos();
-    PIDLeft();
-    PIDRight();
-    if(speed > 0 && topLimit < l_position){
-      leftMotor.set(ControlMode.PercentOutput, rcwLeft);
-      rightMotor.set(ControlMode.PercentOutput, rcwRight);
-    }else if(speed < 0 && bottomLimit > l_position){
-      leftMotor.set(ControlMode.PercentOutput, rcwLeft);
-      rightMotor.set(ControlMode.PercentOutput, rcwRight);
-    }
+    // P = speed;
+    // I = speed;
+    // D = speed;
+    // int l_position = leftPos();
+    // PIDLeft();
+    // PIDRight();
+    // if(speed > 0 && topLimit < l_position){
+      leftMotor.set(ControlMode.PercentOutput, speed);
+      rightMotor.set(ControlMode.PercentOutput, speed);
+    // }else if(speed < 0 && bottomLimit > l_position){
+    //   leftMotor.set(ControlMode.PercentOutput, speed);
+    //   rightMotor.set(ControlMode.PercentOutput, speed);
+    // }
     
   }
 

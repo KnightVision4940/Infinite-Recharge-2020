@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.BallSuck;
 import frc.robot.commands.ControlClimb;
 import frc.robot.commands.OutTake;
+import frc.robot.commands.autonomous.A_FurthestFromWall;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -23,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
+  private final A_FurthestFromWall m_autoCommand = new A_FurthestFromWall();
 
 
   /**
@@ -44,7 +46,7 @@ public class RobotContainer {
     Joystick xbox = new Joystick(Constants.xbox_drive);
     Joystick xbox2 = new Joystick(Constants.xbox_shoot);
     JoystickButton aButton = new JoystickButton(xbox2, 1);
-    JoystickButton bButton = new JoystickButton(xbox2, 2);
+    JoystickButton bButton = new JoystickButton(xbox, 2);
     JoystickButton XButton = new JoystickButton(xbox2, 3);
     JoystickButton aButton_drive = new JoystickButton(xbox, 1);
     
@@ -65,5 +67,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-
+  public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
+    return m_autoCommand;
+  }
 }

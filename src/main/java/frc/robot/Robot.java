@@ -47,6 +47,7 @@ public class Robot extends TimedRobot {
   public static Intake in_sub = new Intake();
   public static ColourWheel c_wheel = new ColourWheel();
   SendableChooser<Command> autoChooser;
+  private RobotContainer m_robotContainer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -56,7 +57,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    // m_robotContainer = new RobotContainer();
+    m_robotContainer = new RobotContainer();
     autoChooser = new SendableChooser<Command>();
     autoChooser.addDefault("Furthest From Wall - Auto 1", new A_FurthestFromWall());
     autoChooser.addObject("In front of Powerport - Auto 2", new A_FrontOfPowerPorrt());

@@ -13,20 +13,20 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Relay;
 
 public class Deployer extends SubsystemBase {
-  public static Solenoid s1;
-  public static Solenoid s2;
-  Relay spike;
+  // public static Solenoid s1;
+  // public static Solenoid s2;
+  // Relay spike;
   /**
    * Creates a new Deployer.
    */
   public Deployer() {
-    s1 = new Solenoid(Constants.Solenoid);
-    s2 = new Solenoid(Constants.Solenoid);
-    spike = new Relay(102);
+    // s1 = new Solenoid(Constants.Solenoid);
+    // s2 = new Solenoid(Constants.Solenoid);
+    // spike = new Relay(102);
   }
 
   public void push(){
-    spike.set(Relay.Value.kOn);
+    // spike.set(Relay.Value.kOn);
   }
   @Override
   public void periodic() {

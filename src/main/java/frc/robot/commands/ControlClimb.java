@@ -37,18 +37,20 @@ public class ControlClimb extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // Robot.Climber.setLimits();
     
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(setLimits){
-      Robot.Climber.setLimits();
-      end(true);
-    }else{
-      Robot.Climber.move(Robot.getY2Left());
-    }
+    // if(setLimits){
+    //   Robot.Climber.setLimits();
+    //   end(true);
+    // }else{
+      Robot.Climber.move(Robot.getYRight());
+      System.out.println("Running...");
+    // }
 
   }
   // Called once the command ends or is interrupted.

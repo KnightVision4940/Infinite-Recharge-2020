@@ -30,8 +30,8 @@ public final class Constants {
     public static int OutTakeRight = 4;
     public static int OutTakeMiddle = 3;
     public static int Intake = 5;
-    public static int Motor1Climb = 100;
-    public static int Motor2Climb = 101;
+    public static int Motor1Climb = 11;
+    public static int Motor2Climb = 6;
     public static int Solenoid = 102;
     
     // ports?
