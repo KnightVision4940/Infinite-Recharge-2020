@@ -13,13 +13,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
-  /**
-   * Creates a new Intake.
-   */
+
   private TalonSRX motor = new TalonSRX(Constants.Intake); // <-- port
   private double speed = -1;
 
   public void move() {
+    // runs intake
     motor.set(ControlMode.PercentOutput, speed);
   }
 

@@ -8,6 +8,7 @@ import edu.wpi.cscore.UsbCamera;
  public static UsbCamera m_Cam;
 	
  public static void camInit(){
+	 //camera
 		m_Cam = CameraServer.getInstance().startAutomaticCapture("vision", 0);
 		m_Cam.setFPS(30);
 		m_Cam.setResolution(192, 144);

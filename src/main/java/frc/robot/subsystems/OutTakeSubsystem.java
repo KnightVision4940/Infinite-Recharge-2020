@@ -14,21 +14,17 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class OutTakeSubsystem extends SubsystemBase {
-  /**
-   * Creates a new OutTakeSubsystem.
-   */
-  // static CANSparkMax RightMotor;
-  static CANSparkMax MiddleMotor;
-  static TalonSRX RightMotor;
-  static TalonSRX LeftMotor;
-  static CANPIDController pid;
-  // static CANSparkMax LeftMotor;
+
+  private CANSparkMax MiddleMotor;
+  private TalonSRX RightMotor;
+  private TalonSRX LeftMotor;
+  private CANPIDController pid;
+
   static int speed = -1;
   static double startTime;
   static boolean runningFull = false;
@@ -52,6 +48,7 @@ public class OutTakeSubsystem extends SubsystemBase {
   }
 
   public void move(double speed, double speed2) {
+    //get current velocity of outtake
     if(getVelocity() < -4550 && runningFull == true){
       RightMotor.set(ControlMode.PercentOutput, speed2);
       LeftMotor.set(ControlMode.PercentOutput, speed2);
@@ -72,6 +69,7 @@ public class OutTakeSubsystem extends SubsystemBase {
   }
 
   public void movePID(double maxRPM, double p, double i, double d, double ff){
+    //pid
     pid.setP(p);
     pid.setI(i);
     pid.setD(d);
@@ -79,7 +77,6 @@ public class OutTakeSubsystem extends SubsystemBase {
     pid.setFF(ff);
     pid.setOutputRange(0, 1);
     pid.setReference(maxRPM, ControlType.kVelocity);
-
   }
 
   public double getVelocity(){

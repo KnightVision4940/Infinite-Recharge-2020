@@ -8,12 +8,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
-// import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
-// import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SPI;
@@ -24,21 +20,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
-  /**
-   * Creates a new DriveTrain.
-   */
 
-  static CANSparkMax leftFront;
-  static CANSparkMax leftBack;
-  static CANSparkMax rightFront;
-  static CANSparkMax rightBack;
+  private CANSparkMax leftFront;
+  private CANSparkMax leftBack;
+  private CANSparkMax rightFront;
+  private CANSparkMax rightBack;
 
-  static CANEncoder encoderLB;
-  static CANEncoder encoderLF;
-  static CANEncoder encoderRB;
-  static CANEncoder encoderRF;
+  private CANEncoder encoderLB;
+  private CANEncoder encoderLF;
+  private CANEncoder encoderRB;
+  private CANEncoder encoderRF;
 
-  static ADXRS450_Gyro gyro;
+  private ADXRS450_Gyro gyro;
 
   private static final int kUltrasonicPort = 0;
   private static final double kValueToInches = 0.125;
@@ -49,7 +42,6 @@ public class DriveTrain extends SubsystemBase {
 
   private static Timer t = new Timer();
   private double waitTime = 3;
-  
 
   // drivetrain main function --- defines vars
   public DriveTrain(int leftF, int leftB, int rightF, int rightB) {
@@ -72,7 +64,6 @@ public class DriveTrain extends SubsystemBase {
     drive = new DifferentialDrive(Left, Right);
   }
 
-
   //basic drive
   public void drive(double speed, double turn) {
     drive.arcadeDrive(speed, turn, true);
@@ -91,7 +82,6 @@ public class DriveTrain extends SubsystemBase {
   }
 
   //auto drive && teletop drive
-
   public void autoDrive(double speed, double turnSpeed) {
     if (turnSpeed != 0.0) {
       drive(speed, turnSpeed);
@@ -121,7 +111,6 @@ public class DriveTrain extends SubsystemBase {
   // }
   // }
 
-
   //auto turning
   //In need of testing
   public boolean turnToAngle(int angle, double speed) {
@@ -142,8 +131,8 @@ public class DriveTrain extends SubsystemBase {
     drive.arcadeDrive(speed, turn);
   }
 
-
   public void encodersOnDashboard() {
+    //puts encoder values on dashboard
     SmartDashboard.putNumber("Encoder Left Back", getEncoderLB());
     SmartDashboard.putNumber("Encoder Right Back", getEncoderRB());
     SmartDashboard.putNumber("Encoder Left Front", getEncoderLF());
@@ -167,12 +156,10 @@ public class DriveTrain extends SubsystemBase {
     return encoderRF.getPosition();
   }
 
-
   //gets ultrasonic distance
   public double getUltrasonic() {
     return m_ultrasonic.getValue() * kValueToInches;
   }
-
 
   //test code
   public void test(int motor, double speed) {
@@ -205,9 +192,4 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
 }
-
-
- 
-

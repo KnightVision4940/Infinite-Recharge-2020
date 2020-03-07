@@ -11,9 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BallCounter extends SubsystemBase {
-  /**
-   * Creates a new BallCounter.
-   */
+
   public DigitalInput intakeLimit  = new DigitalInput(0); 
   public DigitalInput outtakeLimit = new DigitalInput(1); 
   public int balls = 0;

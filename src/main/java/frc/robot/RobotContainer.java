@@ -43,24 +43,19 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    Joystick xbox = new Joystick(Constants.xbox_drive);
-    Joystick xbox2 = new Joystick(Constants.xbox_shoot);
-    JoystickButton aButton = new JoystickButton(xbox2, 1);
-    JoystickButton bButton = new JoystickButton(xbox, 2);
-    JoystickButton XButton = new JoystickButton(xbox2, 3);
-    JoystickButton aButton_drive = new JoystickButton(xbox, 1);
+    Joystick xboxDrive = new Joystick(Constants.xbox_drive);
+    Joystick xboxShoot = new Joystick(Constants.xbox_shoot);
+    JoystickButton aButton = new JoystickButton(xboxShoot, Constants.A);
+    JoystickButton bButton = new JoystickButton(xboxDrive, Constants.B);
+    JoystickButton XButton = new JoystickButton(xboxShoot, Constants.X);
+    JoystickButton aButton_drive = new JoystickButton(xboxDrive, Constants.A);
     
-    // JoystickButton bButton = new JoystickButton(xbox, 1);
-    // JoystickButton yButton = new JoystickButton(xbox, 3);
     aButton.whileHeld(new OutTake(0.7));
     XButton.whileHeld(new OutTake(0.9));
     bButton.toggleWhenPressed(new ControlClimb(0.5,false));
     
     aButton_drive.toggleWhenPressed(new BallSuck());
-    // aButton.toggleWhenPressed(new OutTake());
   }
-  // xButton.toggleWhenPressed(new OutTake());
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
