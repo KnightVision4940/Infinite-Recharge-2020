@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* Open Source Software - may be modified and shared by Shrek. The code   */
+/* must be accompanied by the g@briel BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
@@ -14,46 +14,44 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class DriveForward extends CommandBase {
-  double speed = 0;
-  double startEncoder;
-  double curEncoder;
-
-  int encoderStop;
+  private double speed = 0;
+  
+  // For Encoder Drive
+  private double startEncoder;
+  private double curEncoder;
+  private int encoderStop;
+  
+  //For Ultrasonic Drive
   private double ultrasonic;
 
-  //red - 227 27 35 (0.89, 0.11, 0.14)
-  //Electric Blue - 15 78 171 (0.06, 0.31, 0.67)
+  //For Colour Tape Drive
   private boolean driveToColour = false;
   private double[] redTape = {0.89, 0.11, 0.14};
   private double[] blueTape = {0.06, 0.31, 0.67};
-
   private int stages = 0;
-
   private double redRange=0.1;
   private double blueRange=0.1;
   private double greenRange=0.1;
+  //Red Tape - 227 27 35 (0.89, 0.11, 0.14)
+  //Electric Blue Tape - 15 78 171 (0.06, 0.31, 0.67)
 
+  //For Object Detection
   private int detectDistance = 50;
   private Timer t = new Timer();
   private double waitTime = 3;
 
-  /**
-   * Creates a new DriveForward.
-   */
   public DriveForward(double speed, int encoderStop, double ultrasonic) {
     this.speed = speed;
     this.encoderStop = encoderStop;
     this.ultrasonic = ultrasonic;
     // this.driveToColour = driveToColour;
-
-
     addRequirements(Robot.drive);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    //Resets Gyro before drive starts
     Robot.drive.resetGyro();
     startEncoder = Robot.drive.getEncoderLB();
   }
@@ -61,15 +59,15 @@ public class DriveForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    SmartDashboard.putNumber("Ultrasonic", Robot.drive.getUltrasonic());
+    double uValue = Robot.drive.getUltrasonic();
+    SmartDashboard.putNumber("Ultrasonic", uValue);
     if(driveToColour == true){
       toColourTape();
     }else{
       if(ultrasonic == 0){
-        ultrasonicDrive();
+        ultrasonicDrive(uValue);
       }else{
-        if(robotDetection()){
+        if(robotDetection(uValue)){
           encoderDrive();
         }else{
           Robot.drive.stop();
@@ -82,17 +80,17 @@ public class DriveForward extends CommandBase {
   // Called once the command ends or is interrupted.
   // g@briel Was Here, obrien was here, dm was here, the br@d was here
 
-  public void ultrasonicDrive(){
-    if(Robot.drive.getUltrasonic() <= ultrasonic){
+  public void ultrasonicDrive(double uValue){
+    if(uValue <= ultrasonic){
       Robot.drive.stop();
     }else{
       Robot.drive.drive(speed, 0);
     }
   }
 
-  public boolean robotDetection(){
+  public boolean robotDetection(double uValue){
     double time = t.get();
-    if(Robot.drive.getUltrasonic() <= detectDistance){
+    if(uValue <= detectDistance){
       if(time == 0.0){
         startTimer();
         return true;
@@ -124,9 +122,14 @@ public class DriveForward extends CommandBase {
     Robot.drive.encodersOnDashboard();
   }
 
-  //Figure out some drive thing.
+  //Final turn to align robot with powerport
   public void turnThing(){
-    Robot.drive.autoDrive(0, 0);
+    startTimer();
+    if(t.get() < 1){
+      Robot.drive.autoDrive(-speed, 0.6);
+    }else{
+      end(true);
+    }
     System.out.println("It works!!");
   }
 
@@ -134,6 +137,7 @@ public class DriveForward extends CommandBase {
   public void end(boolean interrupted) {
   }
   
+  //For colour detection
   public boolean inRange(double redV,  double redMin, double redMax,double greenV,  double greenMin, double greenMax,double blueV,  double blueMin, double blueMax) {
     return redV >= redMin && redV <= redMax && greenV >= greenMin && greenV <= greenMax && blueV >= blueMin && blueV <= blueMax;
   }
@@ -146,22 +150,30 @@ public class DriveForward extends CommandBase {
 
 public void toColourTape(){
   double[] rgb = Robot.c_wheel.returnColour();
+  //Checks if alliance is blue
   if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue){
     Robot.drive.autoDrive(speed, 0);
+    //checks if colour is detected first and second time
     if(inRange(rgb[0], blueTape[0] - redRange, blueTape[0] + redRange, rgb[1], blueTape[1] - greenRange, blueTape[1] + greenRange, rgb[2], blueTape[2] - blueRange, blueTape[2] + blueRange) && stages == 0 || stages == 2){
       stages += 1;
+    //checks if robot got out of tape
     }else if(inRange(rgb[0], blueTape[0] - redRange, blueTape[0] + redRange, rgb[1], blueTape[1] - greenRange, blueTape[1] + greenRange, rgb[2], blueTape[2] - blueRange, blueTape[2] + blueRange) == false && stages == 1){
       stages += 2;
+    //Robot has reached second tape --> time to turn
     }else if(stages == 3){
       speed = 0;
       turnThing();
     }
+  //Checks if alliance is red
   }else if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red){
     Robot.drive.autoDrive(speed, 0);
+    //checks if colour is detected first and second time
     if(inRange(rgb[0], redTape[0] - redRange, redTape[0] + redRange, rgb[1], redTape[1] - greenRange, redTape[1] + greenRange, rgb[2], redTape[2] - blueRange, redTape[2] + blueRange) && stages == 0 || stages == 2){
       stages += 1;
+    //checks if robot got out of tape
     }else if(inRange(rgb[0], redTape[0] - redRange, redTape[0] + redRange, rgb[1], redTape[1] - greenRange, redTape[1] + greenRange, rgb[2], redTape[2] - blueRange, redTape[2] + blueRange) == false && stages == 1){
       stages += 2;
+    //Robot has reached second tape --> time to turn
     }else if(stages == 3){
       speed = 0;
       turnThing();

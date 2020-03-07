@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* Open Source Software - may be modified and shared by harambe. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
@@ -11,18 +11,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class Auto_Outake extends CommandBase {
-  /**
-   * Creates a new Auto_Outake.
-   */
-  private int p_toTravel = 0;
+  private int p_toTravel;
   private double currentEncoder = 0;
   private double startEncoder = 0;
 
   public Auto_Outake(int p_toTravel) {
     addRequirements(Robot.sub_outtake);
+    //p to travel is how long the outake will run for
     this.p_toTravel = -p_toTravel;
-    
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -35,6 +31,8 @@ public class Auto_Outake extends CommandBase {
   @Override
   public void execute() {
     currentEncoder = Robot.sub_outtake.getPosition();
+    
+    // Runs until desired encoder position is met
     if(p_toTravel <= currentEncoder - startEncoder){
       Robot.sub_outtake.move(-0.9,-1.0);
     }else{
@@ -45,6 +43,7 @@ public class Auto_Outake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.sub_outtake.stop();
   }
 
   // Returns true when the command should end.

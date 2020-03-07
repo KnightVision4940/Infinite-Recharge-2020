@@ -13,12 +13,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class Drive extends CommandBase {
-  /**
-   * Creates a new Drive.
-   */
+
   public Drive() {
     addRequirements(Robot.drive);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -29,15 +26,16 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //Drive w/ Gyro
+    // Robot.drive.telopDrive(-Robot.getTriggers(), Robot.getXLeft()*0.7);
     Robot.drive.drive(-Robot.getTriggers(), Robot.getXLeft()*0.7);
-    // Robot.drive.telopDrive(-Robot.getTriggers(), Robot.getXLeft());
-    // Robot.c_wheel.putColour();
     SmartDashboard.putNumber("Ultrasonic", Robot.drive.getUltrasonic());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.drive.stop();
   }
 
   // Returns true when the command should end.

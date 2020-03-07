@@ -16,6 +16,7 @@ public class pushOut extends CommandBase {
    */
   public pushOut() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.IntakeDeployer);
   }
 
   // Called when the command is initially scheduled.

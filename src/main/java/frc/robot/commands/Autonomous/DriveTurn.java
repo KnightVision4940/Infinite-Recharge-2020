@@ -11,14 +11,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class DriveTurn extends CommandBase {
-  /**
-   * Creates a new Turn.
-   */
   int angle;
   int speed = 1;
   public DriveTurn(int angle) {
     this.angle = angle;
-    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.drive);
   }
 
   // Called when the command is initially scheduled.
@@ -31,15 +28,20 @@ public class DriveTurn extends CommandBase {
   @Override
   public void execute() {
     int angle = 0;
+    //Checks whether to turn left or right based on speed + or -
     if(speed < 0) { 
       angle = -angle; 
     }
-    Robot.drive.turnToAngle(angle, speed);
+    //The if is here to wait until this function is complete
+    if(Robot.drive.turnToAngle(angle, speed)){
+      end(true);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    
   }
 
   // Returns true when the command should end.

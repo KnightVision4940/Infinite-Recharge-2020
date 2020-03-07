@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColourWheel;
 
+
 public class goToColour extends CommandBase {
   /**
    * Creates a new goToColour.
@@ -19,16 +20,17 @@ public class goToColour extends CommandBase {
   private int colourToGoTo;
   ColourWheel m_colourWheel = new ColourWheel();
   public goToColour() {
-    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_colourWheel);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    String gameData;
-    gameData = DriverStation.getInstance().getGameSpecificMessage();
+    // Gets gamedata for colour
+    String gameData = DriverStation.getInstance().getGameSpecificMessage();
     SmartDashboard.putString("Color", "None");
     String[] colorNames = {"Blue", "Yellow", "Red", "Green"};
+    // Switch statement for what colour the wheel to go to
     if(gameData.length() > 0)
     { 
       switch (gameData.charAt(0))

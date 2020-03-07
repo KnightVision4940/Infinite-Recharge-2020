@@ -31,7 +31,6 @@ public class OutTake extends CommandBase {
   public void execute() {
     spinMotor();
     SmartDashboard.putNumber("Speed of Mid:", -Robot.sub_outtake.getVelocity());
-    // SmartDashboard.putNumber("Velocity", Robot.sub_outtake.getVelocity());
   }
 
   // Called once the command ends or is interrupted.
