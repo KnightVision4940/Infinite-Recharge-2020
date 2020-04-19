@@ -4,7 +4,9 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+// RIP FRC 2020 
 //Break free from the shackles
+
 package frc.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;
