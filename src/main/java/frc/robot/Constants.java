@@ -33,7 +33,8 @@ public final class Constants {
     public static int Intake = 5;
     public static int Motor1Climb = 11;
     public static int Motor2Climb = 6;
-    public static int Solenoid = 102;
+	public static int[] Spike = {0,2};
+	
     
     // ports
 	public static final int DRIVER_PORT = 0;

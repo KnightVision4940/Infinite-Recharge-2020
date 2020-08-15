@@ -21,7 +21,7 @@ import frc.robot.subsystems.climb;
 import frc.robot.subsystems.ColourWheel;
 import frc.robot.subsystems.Deployer;
 import frc.robot.commands.Drive;
-import frc.robot.commands.TestControl;
+import frc.robot.commands.Tester.TestDrive;
 import frc.robot.commands.autonomous.A_FrontOfPowerPorrt;
 import frc.robot.commands.autonomous.A_FurthestFromWall;
 import frc.robot.commands.autonomous.A_Middle;
@@ -136,7 +136,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-    CommandScheduler.getInstance().schedule(new TestControl());
+    CommandScheduler.getInstance().schedule(new TestDrive(0.5));
     CommandScheduler.getInstance().run();
   }
 

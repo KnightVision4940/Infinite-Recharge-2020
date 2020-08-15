@@ -28,8 +28,8 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
     //Drive w/ Gyro
-    // Robot.drive.telopDrive(-Robot.getTriggers(), Robot.getXLeft()*0.7);
-    Robot.drive.drive(-Robot.getTriggers(), Robot.getXLeft()*0.7);
+    Robot.drive.telopDrive(-Robot.getTriggers()*0.85, Robot.getXLeft()*0.6);
+    // Robot.drive.drive(-Robot.getTriggers(), Robot.getXLeft()*0.7);
     SmartDashboard.putNumber("Ultrasonic", Robot.drive.getUltrasonic());
   }
 

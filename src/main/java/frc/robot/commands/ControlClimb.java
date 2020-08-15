@@ -9,6 +9,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
@@ -38,6 +39,7 @@ public class ControlClimb extends CommandBase {
   @Override
   public void initialize() {
     // Robot.Climber.setLimits();
+    SmartDashboard.putBoolean("Climb:", true);
     
   }
 
@@ -50,13 +52,15 @@ public class ControlClimb extends CommandBase {
       end(true);
     // Otherwise the climb will just run
     }else{
-      Robot.Climber.move(Robot.getYRight());
+      Robot.Climber.move(Robot.getY2Right()*0.5);
     }
 
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.Climber.stop();
+    SmartDashboard.putBoolean("Climb:", false);
   }
 
   // Returns true when the command should end.

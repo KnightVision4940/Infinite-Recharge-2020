@@ -43,7 +43,7 @@ public class DriveTrain extends SubsystemBase {
 
   private static Timer t = new Timer();
   private double waitTime = 3;
-
+  private int motor=0;
   // drivetrain main function --- defines vars
   public DriveTrain(int leftF, int leftB, int rightF, int rightB) {
     leftFront = new CANSparkMax(leftF, MotorType.kBrushless);
@@ -163,29 +163,31 @@ public class DriveTrain extends SubsystemBase {
   }
 
   //test code
-  public void test(int motor, double speed) {
-    if (motor == 0) {
-      leftFront.set(speed);
-      startTimer();
-      motor++;
-    }else if(motor == 1 && t.get() == waitTime*1){
-      leftFront.set(0);
-      leftBack.set(speed);
-      motor++;
-    }else if(motor == 2 &&  t.get() == waitTime*2){
-      leftBack.set(0);
-      rightFront.set(speed);
-      motor++;
-    }else if(motor  == 3 && t.get() == waitTime*3){
-      rightFront.set(0);
-      rightBack.set(speed);
-      motor=4;
-    }else if(motor  == 4 && t.get() == waitTime*4){
-      rightBack.set(speed);
-      motor=4;
+  public void test(double speed) {
+    startTimer();
+    for(motor=0; motor<4 ;motor++){
+      if (motor == 0) {
+        leftFront.set(speed);
+      }else if(motor == 1){
+        leftFront.set(0);
+        leftBack.set(speed);
+      }else if(motor == 2){
+        leftBack.set(0);
+        rightFront.set(speed);
+      }else if(motor  == 3){
+        rightFront.set(0);
+        rightBack.set(speed);
+      }else if(motor  == 4){
+        rightBack.set(speed);
+      }
+      wait(waitTime);
     }
   }
-
+  private void wait(double seconds){
+    while(t.get() < seconds){
+       
+    }
+  }
   private void startTimer(){
     t.start();
   }

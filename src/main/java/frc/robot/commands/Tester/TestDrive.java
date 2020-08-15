@@ -6,16 +6,18 @@
 /*----------------------------------------------------------------------------*/
 // RIP FRC 2020 
 
-package frc.robot.commands;
+package frc.robot.commands.Tester;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class TestControl extends CommandBase {
+public class TestDrive extends CommandBase {
   /**
    * Creates a new TestControl.
    */
-  public TestControl() {
+  double speed;
+  public TestDrive(double speed) {
+    this.speed =speed;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,11 +29,11 @@ public class TestControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.drive.test(0, 1.0);
-    Robot.drive.test(0, 0.5);
-    Robot.drive.test(0, 0.25);
-    Robot.drive.test(0, 0.10);
-    Robot.drive.test(0, 1.0);
+    Robot.drive.test(speed);
+    Robot.drive.test(speed);
+    Robot.drive.test(speed);
+    Robot.drive.test(speed);
+    Robot.drive.test(speed);
   }
 
   // Called once the command ends or is interrupted.

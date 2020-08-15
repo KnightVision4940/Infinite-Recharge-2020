@@ -21,16 +21,23 @@ import frc.robot.Constants;
 
 public class OutTakeSubsystem extends SubsystemBase {
 
+  //main vars
   private CANSparkMax MiddleMotor;
   private TalonSRX RightMotor;
   private TalonSRX LeftMotor;
   private CANPIDController pid;
-
   static int speed = -1;
+  static CANEncoder outtakeEncoder;
+
+  // testing vars
+  private int motor=0;
+  private Timer delay = new Timer();
+  private double waitTime;
+
+  //running delay
   static double startTime;
   static boolean runningFull = false;
 
-  static CANEncoder outtakeEncoder;
 
   public OutTakeSubsystem() {
 
@@ -50,10 +57,10 @@ public class OutTakeSubsystem extends SubsystemBase {
 
   public void move(double speed, double speed2) {
     //get current velocity of outtake
-    if(getVelocity() < -4550 && runningFull == true){
+    if(getVelocity() < -4030 && runningFull == true){
       RightMotor.set(ControlMode.PercentOutput, speed2);
       LeftMotor.set(ControlMode.PercentOutput, speed2);
-    }else if(getVelocity() < -4500 && runningFull == false){
+    }else if(getVelocity() < -4030 && runningFull == false){
       runningFull = true;
     }
      MiddleMotor.set(speed);
@@ -85,5 +92,26 @@ public class OutTakeSubsystem extends SubsystemBase {
   }
   public double getPosition(){
     return outtakeEncoder.getPosition();
+  }
+
+  public void testShot(double testSpeed){
+    if (motor == 0) {
+      MiddleMotor.set(testSpeed);
+      startTimer();
+      motor++;
+    }else if(motor == 1 && delay.get() == waitTime*1){
+      MiddleMotor.set(0);
+      RightMotor.set(ControlMode.PercentOutput, testSpeed);
+      motor++;
+    }else if(motor == 2 && delay.get() == waitTime*2){
+      RightMotor.set(ControlMode.PercentOutput, 0);
+      LeftMotor.set(ControlMode.PercentOutput, testSpeed);
+      motor++;
+    }
+
+  }
+
+  private void startTimer(){
+    delay.start();
   }
 }

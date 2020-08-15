@@ -8,10 +8,13 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
 public class pushOut extends CommandBase {
+  private static Timer wait = new Timer();
+  
   /**
    * Creates a new pushOut.
    */
@@ -23,17 +26,24 @@ public class pushOut extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.IntakeDeployer.push();
+    wait.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(wait.get()==5.0){
+    Robot.IntakeDeployer.push();
+    }
+  
   }
+
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.IntakeDeployer.back();
+
   }
 
   // Returns true when the command should end.

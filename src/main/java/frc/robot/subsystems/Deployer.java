@@ -14,21 +14,29 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Relay;
 
 public class Deployer extends SubsystemBase {
-  // public static Solenoid s1;
-  // public static Solenoid s2;
-  // Relay spike;
+  public static Solenoid s1;
+  public static Solenoid s2;
+  Relay spike;
+  Relay spike2;
   /**
    * Creates a new Deployer.
    */
   public Deployer() {
     // s1 = new Solenoid(Constants.Solenoid);
     // s2 = new Solenoid(Constants.Solenoid);
-    // spike = new Relay(102);
+    spike = new Relay(Constants.Spike[0]);
+    spike2 = new Relay(Constants.Spike[1]);
   }
 
   public void push(){
-    // spike.set(Relay.Value.kOn);
+    spike.set(Relay.Value.kOn);
+    spike2.set(Relay.Value.kOn);
   }
+  public void back(){
+    spike.set(Relay.Value.kOff);
+    spike2.set(Relay.Value.kOff);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

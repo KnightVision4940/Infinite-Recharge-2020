@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.BallSuck;
 import frc.robot.commands.ControlClimb;
 import frc.robot.commands.OutTake;
+import frc.robot.commands.pushOut;
 import frc.robot.commands.autonomous.A_FurthestFromWall;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -47,13 +48,16 @@ public class RobotContainer {
     Joystick xboxDrive = new Joystick(Constants.xbox_drive);
     Joystick xboxShoot = new Joystick(Constants.xbox_shoot);
     JoystickButton aButton = new JoystickButton(xboxShoot, Constants.A);
-    JoystickButton bButton = new JoystickButton(xboxDrive, Constants.B);
+    JoystickButton bButton = new JoystickButton(xboxShoot, Constants.B);
     JoystickButton XButton = new JoystickButton(xboxShoot, Constants.X);
+    JoystickButton XDriveButton = new JoystickButton(xboxDrive, Constants.X);
     JoystickButton aButton_drive = new JoystickButton(xboxDrive, Constants.A);
     
-    aButton.whileHeld(new OutTake(0.7));
+    aButton.whileHeld(new OutTake(0.8));
     XButton.whileHeld(new OutTake(0.9));
     bButton.toggleWhenPressed(new ControlClimb(0.5,false));
+
+    XDriveButton.whileHeld(new pushOut());
     
     aButton_drive.toggleWhenPressed(new BallSuck());
   }

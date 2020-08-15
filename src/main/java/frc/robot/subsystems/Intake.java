@@ -16,7 +16,9 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
 
   private TalonSRX motor = new TalonSRX(Constants.Intake); // <-- port
-  private double speed = -1;
+  private double speed = -0.2;
+  // -0.2 for deploying intake
+  // 1 for regular use
 
   public void move() {
     // runs intake
